@@ -1,0 +1,139 @@
+TY  - JOUR
+TI  - Randomized controlled trial of aspirin versus placebo for cardiovascular prevention
+AU  - Smith, John
+AU  - Johnson, Mary
+PY  - 2024
+JO  - Journal of Clinical Medicine
+AB  - This randomized placebo-controlled trial evaluated the efficacy of low-dose aspirin for primary cardiovascular prevention in adults over 65 years. We found a significant reduction in major adverse cardiovascular events (MACE) with aspirin compared to placebo (HR 0.82, 95% CI 0.70-0.96).
+KW  - aspirin
+KW  - cardiovascular
+KW  - randomized controlled trial
+KW  - prevention
+DO  - 10.1234/jcm.2024.001
+ER  -
+
+TY  - JOUR
+TI  - Meta-analysis of statin therapy for secondary prevention of cardiovascular disease
+AU  - Williams, Sarah
+AU  - Brown, David
+PY  - 2023
+JO  - Cardiology Reviews
+AB  - This meta-analysis pooled data from 15 randomized trials evaluating statin therapy for secondary prevention. Results showed a 25% reduction in cardiovascular mortality (RR 0.75, 95% CI 0.68-0.83) with statin use.
+KW  - statins
+KW  - meta-analysis
+KW  - cardiovascular
+KW  - secondary prevention
+DO  - 10.1234/cr.2023.045
+ER  -
+
+TY  - JOUR
+TI  - Efficacy of ACE inhibitors in heart failure: a systematic review
+AU  - Chen, Wei
+AU  - Garcia, Maria
+PY  - 2024
+JO  - Heart Failure Journal
+AB  - This systematic review examined randomized controlled trials of ACE inhibitors in patients with heart failure with reduced ejection fraction. ACE inhibitors significantly reduced all-cause mortality (OR 0.77, 95% CI 0.67-0.88) and hospitalizations.
+KW  - ACE inhibitors
+KW  - heart failure
+KW  - systematic review
+KW  - mortality
+DO  - 10.1234/hfj.2024.012
+ER  -
+
+TY  - JOUR
+TI  - Beta-blocker therapy and outcomes in acute myocardial infarction
+AU  - Thompson, Robert
+AU  - Davis, Jennifer
+PY  - 2023
+JO  - American Journal of Cardiology
+AB  - A randomized double-blind trial comparing beta-blocker therapy to placebo in patients with acute MI. Beta-blockers reduced 30-day mortality (HR 0.65, 95% CI 0.52-0.81) and reinfarction rates.
+KW  - beta-blockers
+KW  - myocardial infarction
+KW  - randomized trial
+KW  - mortality
+DO  - 10.1234/ajc.2023.098
+ER  -
+
+TY  - JOUR
+TI  - Anticoagulation strategies in atrial fibrillation: network meta-analysis
+AU  - Miller, James
+AU  - Wilson, Emily
+PY  - 2024
+JO  - European Heart Journal
+AB  - This network meta-analysis compared direct oral anticoagulants (DOACs) with warfarin for stroke prevention in atrial fibrillation. DOACs showed superior efficacy and safety profiles compared to warfarin, with apixaban ranking highest for the composite of efficacy and bleeding.
+KW  - anticoagulation
+KW  - atrial fibrillation
+KW  - network meta-analysis
+KW  - DOACs
+DO  - 10.1234/ehj.2024.055
+ER  -
+
+TY  - JOUR
+TI  - Diagnostic accuracy of troponin testing for acute coronary syndrome
+AU  - Anderson, Lisa
+AU  - Martinez, Carlos
+PY  - 2023
+JO  - Clinical Chemistry
+AB  - This diagnostic test accuracy meta-analysis evaluated high-sensitivity troponin assays for acute coronary syndrome diagnosis. Pooled sensitivity was 0.94 (95% CI 0.91-0.96) and specificity was 0.87 (95% CI 0.82-0.91).
+KW  - troponin
+KW  - diagnostic accuracy
+KW  - acute coronary syndrome
+KW  - meta-analysis
+DO  - 10.1234/cc.2023.078
+ER  -
+
+TY  - JOUR
+TI  - Exercise-based cardiac rehabilitation: Cochrane review update
+AU  - Taylor, Rebecca
+AU  - Jones, Michael
+PY  - 2024
+JO  - Cochrane Database of Systematic Reviews
+AB  - Updated Cochrane review of exercise-based cardiac rehabilitation following myocardial infarction or revascularization. Meta-analysis of 85 trials showed reduced cardiovascular mortality (RR 0.74, 95% CI 0.64-0.86) and hospital admissions.
+KW  - cardiac rehabilitation
+KW  - exercise
+KW  - Cochrane review
+KW  - mortality
+DO  - 10.1234/cdsr.2024.003
+ER  -
+
+TY  - JOUR
+TI  - SGLT2 inhibitors in type 2 diabetes with cardiovascular disease
+AU  - Lee, Daniel
+AU  - Kim, Susan
+PY  - 2024
+JO  - Diabetes Care
+AB  - Randomized trial of empagliflozin versus placebo in patients with type 2 diabetes and established cardiovascular disease. Primary outcome (MACE) was significantly reduced (HR 0.86, 95% CI 0.74-0.99, p=0.04).
+KW  - SGLT2 inhibitors
+KW  - diabetes
+KW  - cardiovascular
+KW  - randomized trial
+DO  - 10.1234/dc.2024.033
+ER  -
+
+TY  - JOUR
+TI  - Blood pressure targets in hypertension: systematic review and meta-regression
+AU  - Patel, Raj
+AU  - O'Brien, Catherine
+PY  - 2023
+JO  - Hypertension
+AB  - Meta-regression analysis examining optimal blood pressure targets. Intensive treatment (SBP <120) reduced cardiovascular events but increased adverse effects. Optimal target appears to be SBP 120-130 mmHg.
+KW  - hypertension
+KW  - blood pressure
+KW  - meta-regression
+KW  - targets
+DO  - 10.1234/hyp.2023.067
+ER  -
+
+TY  - JOUR
+TI  - Lipid-lowering therapy dose-response meta-analysis
+AU  - Robinson, Thomas
+AU  - White, Amanda
+PY  - 2024
+JO  - JAMA Cardiology
+AB  - Dose-response meta-analysis of statin intensity and cardiovascular outcomes. Each 1 mmol/L reduction in LDL-C associated with 22% reduction in major vascular events (RR 0.78, 95% CI 0.74-0.82).
+KW  - statins
+KW  - dose-response
+KW  - LDL cholesterol
+KW  - meta-analysis
+DO  - 10.1234/jamacardio.2024.019
+ER  -

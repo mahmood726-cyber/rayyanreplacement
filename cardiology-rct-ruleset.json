@@ -1,0 +1,203 @@
+{
+  "version": 1,
+  "name": "Cardiology RCT Screening",
+  "description": "Rules for screening cardiology randomized controlled trials",
+  "rules": [
+    {
+      "rule_id": "R_RETRACTED",
+      "name": "Retracted article",
+      "priority": 5,
+      "scope": ["title"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["retracted", "withdrawal", "withdrawn", "erratum", "corrigendum"]
+      },
+      "action": {
+        "decision": "exclude",
+        "reason": "Retracted"
+      }
+    },
+    {
+      "rule_id": "R_ANIMAL",
+      "name": "Animal study",
+      "priority": 10,
+      "scope": ["title", "abstract"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["murine", "mouse", "mice", "rat", "rats", "porcine", "swine", "pig", "canine", "dog", "rabbit", "bovine", "ovine", "sheep", "primate", "monkey", "in vivo model", "animal model", "rodent"]
+      },
+      "action": {
+        "decision": "exclude",
+        "reason": "Animal study"
+      }
+    },
+    {
+      "rule_id": "R_INVITRO",
+      "name": "In vitro / cell study",
+      "priority": 15,
+      "scope": ["title", "abstract"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["in vitro", "cell line", "cell culture", "cultured cells", "cardiomyocytes", "hek293", "hela cells"]
+      },
+      "action": {
+        "decision": "exclude",
+        "reason": "In vitro study"
+      }
+    },
+    {
+      "rule_id": "R_REVIEW",
+      "name": "Review/meta-analysis",
+      "priority": 20,
+      "scope": ["title"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["systematic review", "meta-analysis", "meta analysis", "umbrella review", "scoping review", "narrative review", "literature review", "cochrane review"]
+      },
+      "action": {
+        "decision": "exclude",
+        "reason": "Review/editorial"
+      }
+    },
+    {
+      "rule_id": "R_EDITORIAL",
+      "name": "Editorial/letter/comment",
+      "priority": 25,
+      "scope": ["title"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["editorial", "letter to the editor", "letter:", "comment on", "response to", "reply to", "correspondence:", "in response"]
+      },
+      "action": {
+        "decision": "exclude",
+        "reason": "Review/editorial"
+      }
+    },
+    {
+      "rule_id": "R_PROTOCOL",
+      "name": "Study protocol only",
+      "priority": 30,
+      "scope": ["title"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["study protocol", "trial protocol", "protocol for", "protocol of", "design and rationale", "rationale and design"]
+      },
+      "action": {
+        "decision": "exclude",
+        "reason": "Protocol only"
+      }
+    },
+    {
+      "rule_id": "R_CASE",
+      "name": "Case report/series",
+      "priority": 40,
+      "scope": ["title"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["case report", "case series", "case study", "a case of", "a rare case"]
+      },
+      "action": {
+        "decision": "exclude",
+        "reason": "Wrong study design"
+      }
+    },
+    {
+      "rule_id": "R_GUIDELINE",
+      "name": "Guideline/consensus",
+      "priority": 45,
+      "scope": ["title"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["guideline", "guidelines", "consensus statement", "position statement", "expert consensus", "scientific statement"]
+      },
+      "action": {
+        "decision": "exclude",
+        "reason": "Review/editorial"
+      }
+    },
+    {
+      "rule_id": "R_NON_RCT",
+      "name": "Non-RCT observational",
+      "priority": 50,
+      "scope": ["title", "abstract"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["retrospective cohort", "retrospective analysis", "retrospective study", "observational study", "registry analysis", "registry study", "case-control study", "cross-sectional study", "cross sectional", "propensity score", "propensity matched"]
+      },
+      "action": {
+        "decision": "flag",
+        "reason": "Likely non-RCT (verify)"
+      }
+    },
+    {
+      "rule_id": "R_SUBANALYSIS",
+      "name": "Sub-analysis/post-hoc",
+      "priority": 55,
+      "scope": ["title", "abstract"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["subanalysis", "sub-analysis", "subgroup analysis", "post-hoc analysis", "post hoc analysis", "secondary analysis", "pooled analysis"]
+      },
+      "action": {
+        "decision": "flag",
+        "reason": "Sub-analysis (verify if primary RCT)"
+      }
+    },
+    {
+      "rule_id": "R_PEDIATRIC",
+      "name": "Pediatric population",
+      "priority": 60,
+      "scope": ["title", "abstract"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["pediatric", "paediatric", "children", "child", "infant", "infants", "neonate", "neonatal", "neonates", "adolescent", "adolescents", "congenital heart", "kawasaki"]
+      },
+      "action": {
+        "decision": "flag",
+        "reason": "Pediatric (verify eligibility)"
+      }
+    },
+    {
+      "rule_id": "R_COST",
+      "name": "Cost/economic analysis",
+      "priority": 65,
+      "scope": ["title"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["cost-effectiveness", "cost effectiveness", "cost-utility", "cost utility", "economic evaluation", "economic analysis", "budget impact", "health economics"]
+      },
+      "action": {
+        "decision": "exclude",
+        "reason": "Economic analysis"
+      }
+    },
+    {
+      "rule_id": "R_IMAGING_ONLY",
+      "name": "Imaging methodology",
+      "priority": 70,
+      "scope": ["title"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["image quality", "imaging protocol", "scan protocol", "mri sequence", "echocardiography validation", "strain imaging", "image reconstruction"]
+      },
+      "action": {
+        "decision": "flag",
+        "reason": "Imaging methodology (verify clinical outcomes)"
+      }
+    },
+    {
+      "rule_id": "R_RCT_SIGNAL",
+      "name": "RCT positive signal",
+      "priority": 100,
+      "scope": ["title", "abstract"],
+      "when": {
+        "op": "contains_any",
+        "terms": ["randomized controlled trial", "randomised controlled trial", "randomized trial", "randomised trial", "rct", "double-blind", "double blind", "placebo-controlled", "placebo controlled", "randomly assigned", "randomly allocated"]
+      },
+      "action": {
+        "decision": "include",
+        "reason": "RCT signal detected"
+      }
+    }
+  ]
+}
