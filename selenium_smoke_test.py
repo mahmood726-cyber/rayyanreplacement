@@ -40,10 +40,10 @@ def find_latest(paths):
 
 def find_drivers():
     edge_paths = glob.glob(
-        r"C:\Users\user\.cache\selenium\msedgedriver\win64\*\msedgedriver.exe"
+        os.path.expanduser(r"~\.cache\selenium\msedgedriver\win64\*\msedgedriver.exe")
     )
     chrome_paths = glob.glob(
-        r"C:\Users\user\.cache\selenium\chromedriver\win64\*\chromedriver.exe"
+        os.path.expanduser(r"~\.cache\selenium\chromedriver\win64\*\chromedriver.exe")
     )
     return {
         "edge": find_latest(edge_paths) if edge_paths else None,
@@ -93,7 +93,7 @@ def pick_pdf_path(cli_path=None):
     if cli_path and os.path.exists(cli_path):
         return os.path.abspath(cli_path)
 
-    pdfs = glob.glob(r"C:\Users\user\Downloads\*.pdf")
+    pdfs = glob.glob(os.path.expanduser(r"~\Downloads\*.pdf"))
     return os.path.abspath(pdfs[0]) if pdfs else None
 
 

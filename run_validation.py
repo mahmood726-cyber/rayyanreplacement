@@ -20,8 +20,8 @@ def find_latest(paths):
     return max(paths, key=lambda p: os.path.getmtime(p))
 
 def find_drivers():
-    edge_paths = glob.glob(r"C:\Users\user\.cache\selenium\msedgedriver\win64\*\msedgedriver.exe")
-    chrome_paths = glob.glob(r"C:\Users\user\.cache\selenium\chromedriver\win64\*\chromedriver.exe")
+    edge_paths = glob.glob(os.path.expanduser(r"~\.cache\selenium\msedgedriver\win64\*\msedgedriver.exe"))
+    chrome_paths = glob.glob(os.path.expanduser(r"~\.cache\selenium\chromedriver\win64\*\chromedriver.exe"))
     return {
         "edge": find_latest(edge_paths) if edge_paths else None,
         "chrome": find_latest(chrome_paths) if chrome_paths else None,
