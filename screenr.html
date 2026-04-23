@@ -2639,7 +2639,19 @@
               <p style="font-size: 0.75rem; color: var(--text-light); margin-bottom: 8px;">
                 Copy text from your PDF (Ctrl+A, Ctrl+C) and paste below. The extractor will find sample sizes, outcomes, demographics, etc.
               </p>
-              <textarea id="pasteTextArea" placeholder="Paste the full-text or relevant sections from the PDF here...
+              <textarea id="pasteTextArea" aria-label="Paste the full-text or relevant sections from the PDF here...
+
+Tips:
+- Include the Methods and Results sections
+- Include any baseline characteristics tables
+- Include the primary outcome results
+
+The auto-extractor will search for:
+- Sample sizes (N= or 'patients were randomized')
+- Demographics (age, sex, race)
+- Clinical data (EF, NYHA, comorbidities)
+- Outcomes (HR, RR, OR with confidence intervals)
+- Follow-up duration" placeholder="Paste the full-text or relevant sections from the PDF here...
 
 Tips:
 - Include the Methods and Results sections
@@ -2662,7 +2674,7 @@ The auto-extractor will search for:
               <h4>Study Template</h4>
               <div class="extract-grid">
                 <div class="extract-field">
-                  <label>Study Design</label>
+                  <label for="ext_study_design">Study Design</label>
                   <select id="ext_study_design">
                     <option value="">Select...</option>
                     <option value="rct">Randomized Controlled Trial</option>
@@ -2684,19 +2696,19 @@ The auto-extractor will search for:
               <h4 onclick="this.parentElement.classList.toggle('collapsed'); this.setAttribute('aria-expanded', !this.parentElement.classList.contains('collapsed'))" tabindex="0" role="button" aria-expanded="true">Sample Size</h4>
               <div class="extract-grid">
                 <div class="extract-field">
-                  <label>Treatment N</label>
-                  <input type="number" id="ext_treatment_n" placeholder="e.g., 2373">
+                  <label for="ext_treatment_n">Treatment N</label>
+                  <input type="number" id="ext_treatment_n" aria-label="e.g., 2373" placeholder="e.g., 2373">
                 </div>
                 <div class="extract-field">
-                  <label>Control N</label>
-                  <input type="number" id="ext_control_n" placeholder="e.g., 2371">
+                  <label for="ext_control_n">Control N</label>
+                  <input type="number" id="ext_control_n" aria-label="e.g., 2371" placeholder="e.g., 2371">
                 </div>
                 <div class="extract-field">
-                  <label>Total N</label>
-                  <input type="number" id="ext_total_n" placeholder="e.g., 4744">
+                  <label for="ext_total_n">Total N</label>
+                  <input type="number" id="ext_total_n" aria-label="e.g., 4744" placeholder="e.g., 4744">
                 </div>
                 <div class="extract-field">
-                  <label>Analysis Type</label>
+                  <label for="ext_analysis_type">Analysis Type</label>
                   <select id="ext_analysis_type">
                     <option value="">Select...</option>
                     <option value="ITT">ITT</option>
@@ -2712,20 +2724,20 @@ The auto-extractor will search for:
               <h4 onclick="this.parentElement.classList.toggle('collapsed'); this.setAttribute('aria-expanded', !this.parentElement.classList.contains('collapsed'))" tabindex="0" role="button" aria-expanded="true">Demographics</h4>
               <div class="extract-grid">
                 <div class="extract-field">
-                  <label>Age Mean (SD)</label>
-                  <input type="text" id="ext_age" placeholder="e.g., 66.8 (10.2)">
+                  <label for="ext_age">Age Mean (SD)</label>
+                  <input type="text" id="ext_age" aria-label="e.g., 66.8 (10.2)" placeholder="e.g., 66.8 (10.2)">
                 </div>
                 <div class="extract-field">
-                  <label>Male %</label>
-                  <input type="number" step="0.1" id="ext_male_pct" placeholder="e.g., 76.5">
+                  <label for="ext_male_pct">Male %</label>
+                  <input type="number" step="0.1" id="ext_male_pct" aria-label="e.g., 76.5" placeholder="e.g., 76.5">
                 </div>
                 <div class="extract-field">
-                  <label>White/Caucasian %</label>
-                  <input type="number" step="0.1" id="ext_white_pct" placeholder="e.g., 70.2">
+                  <label for="ext_white_pct">White/Caucasian %</label>
+                  <input type="number" step="0.1" id="ext_white_pct" aria-label="e.g., 70.2" placeholder="e.g., 70.2">
                 </div>
                 <div class="extract-field">
-                  <label>BMI Mean</label>
-                  <input type="number" step="0.1" id="ext_bmi" placeholder="e.g., 28.5">
+                  <label for="ext_bmi">BMI Mean</label>
+                  <input type="number" step="0.1" id="ext_bmi" aria-label="e.g., 28.5" placeholder="e.g., 28.5">
                 </div>
               </div>
             </div>
@@ -2735,36 +2747,36 @@ The auto-extractor will search for:
               <h4 onclick="this.parentElement.classList.toggle('collapsed'); this.setAttribute('aria-expanded', !this.parentElement.classList.contains('collapsed'))" tabindex="0" role="button" aria-expanded="true">Clinical Characteristics</h4>
               <div class="extract-grid">
                 <div class="extract-field">
-                  <label>EF Mean (%)</label>
-                  <input type="number" step="0.1" id="ext_ef" placeholder="e.g., 31.2">
+                  <label for="ext_ef">EF Mean (%)</label>
+                  <input type="number" step="0.1" id="ext_ef" aria-label="e.g., 31.2" placeholder="e.g., 31.2">
                 </div>
                 <div class="extract-field">
-                  <label>Follow-up (months)</label>
-                  <input type="number" step="0.1" id="ext_followup" placeholder="e.g., 18.2">
+                  <label for="ext_followup">Follow-up (months)</label>
+                  <input type="number" step="0.1" id="ext_followup" aria-label="e.g., 18.2" placeholder="e.g., 18.2">
                 </div>
                 <div class="extract-field">
-                  <label>NYHA II %</label>
-                  <input type="number" step="0.1" id="ext_nyha2" placeholder="e.g., 67.7">
+                  <label for="ext_nyha2">NYHA II %</label>
+                  <input type="number" step="0.1" id="ext_nyha2" aria-label="e.g., 67.7" placeholder="e.g., 67.7">
                 </div>
                 <div class="extract-field">
-                  <label>NYHA III %</label>
-                  <input type="number" step="0.1" id="ext_nyha3" placeholder="e.g., 31.5">
+                  <label for="ext_nyha3">NYHA III %</label>
+                  <input type="number" step="0.1" id="ext_nyha3" aria-label="e.g., 31.5" placeholder="e.g., 31.5">
                 </div>
                 <div class="extract-field">
-                  <label>Diabetes %</label>
-                  <input type="number" step="0.1" id="ext_diabetes" placeholder="e.g., 41.8">
+                  <label for="ext_diabetes">Diabetes %</label>
+                  <input type="number" step="0.1" id="ext_diabetes" aria-label="e.g., 41.8" placeholder="e.g., 41.8">
                 </div>
                 <div class="extract-field">
-                  <label>Hypertension %</label>
-                  <input type="number" step="0.1" id="ext_hypertension" placeholder="e.g., 73.4">
+                  <label for="ext_hypertension">Hypertension %</label>
+                  <input type="number" step="0.1" id="ext_hypertension" aria-label="e.g., 73.4" placeholder="e.g., 73.4">
                 </div>
                 <div class="extract-field">
-                  <label>AF %</label>
-                  <input type="number" step="0.1" id="ext_af" placeholder="e.g., 36.1">
+                  <label for="ext_af">AF %</label>
+                  <input type="number" step="0.1" id="ext_af" aria-label="e.g., 36.1" placeholder="e.g., 36.1">
                 </div>
                 <div class="extract-field">
-                  <label>Ischemic %</label>
-                  <input type="number" step="0.1" id="ext_ischemic" placeholder="e.g., 55.3">
+                  <label for="ext_ischemic">Ischemic %</label>
+                  <input type="number" step="0.1" id="ext_ischemic" aria-label="e.g., 55.3" placeholder="e.g., 55.3">
                 </div>
               </div>
             </div>
@@ -2774,15 +2786,15 @@ The auto-extractor will search for:
               <h4 onclick="this.parentElement.classList.toggle('collapsed'); this.setAttribute('aria-expanded', !this.parentElement.classList.contains('collapsed'))" tabindex="0" role="button" aria-expanded="true">Primary Outcome</h4>
               <div class="extract-grid">
                 <div class="extract-field full">
-                  <label>Outcome Definition</label>
-                  <input type="text" id="ext_outcome_def" placeholder="e.g., CV death or HF hospitalization">
+                  <label for="ext_outcome_def">Outcome Definition</label>
+                  <input type="text" id="ext_outcome_def" aria-label="e.g., CV death or HF hospitalization" placeholder="e.g., CV death or HF hospitalization">
                 </div>
                 <div class="extract-field">
-                  <label>HR/RR/OR</label>
-                  <input type="number" step="0.01" id="ext_effect" placeholder="e.g., 0.74">
+                  <label for="ext_effect">HR/RR/OR</label>
+                  <input type="number" step="0.01" id="ext_effect" aria-label="e.g., 0.74" placeholder="e.g., 0.74">
                 </div>
                 <div class="extract-field">
-                  <label>Effect Type</label>
+                  <label for="ext_effect_type">Effect Type</label>
                   <select id="ext_effect_type">
                     <option value="">Select...</option>
                     <option value="HR">HR</option>
@@ -2792,24 +2804,24 @@ The auto-extractor will search for:
                   </select>
                 </div>
                 <div class="extract-field">
-                  <label>95% CI Lower</label>
-                  <input type="number" step="0.01" id="ext_ci_lo" placeholder="e.g., 0.65">
+                  <label for="ext_ci_lo">95% CI Lower</label>
+                  <input type="number" step="0.01" id="ext_ci_lo" aria-label="e.g., 0.65" placeholder="e.g., 0.65">
                 </div>
                 <div class="extract-field">
-                  <label>95% CI Upper</label>
-                  <input type="number" step="0.01" id="ext_ci_hi" placeholder="e.g., 0.85">
+                  <label for="ext_ci_hi">95% CI Upper</label>
+                  <input type="number" step="0.01" id="ext_ci_hi" aria-label="e.g., 0.85" placeholder="e.g., 0.85">
                 </div>
                 <div class="extract-field">
-                  <label>P-value</label>
-                  <input type="text" id="ext_pvalue" placeholder="e.g., <0.001">
+                  <label for="ext_pvalue">P-value</label>
+                  <input type="text" id="ext_pvalue" aria-label="e.g., <0.001" placeholder="e.g., <0.001">
                 </div>
                 <div class="extract-field">
-                  <label>Events (Treatment)</label>
-                  <input type="number" id="ext_events_tx" placeholder="e.g., 386">
+                  <label for="ext_events_tx">Events (Treatment)</label>
+                  <input type="number" id="ext_events_tx" aria-label="e.g., 386" placeholder="e.g., 386">
                 </div>
                 <div class="extract-field">
-                  <label>Events (Control)</label>
-                  <input type="number" id="ext_events_ctrl" placeholder="e.g., 502">
+                  <label for="ext_events_ctrl">Events (Control)</label>
+                  <input type="number" id="ext_events_ctrl" aria-label="e.g., 502" placeholder="e.g., 502">
                 </div>
               </div>
             </div>
@@ -2818,7 +2830,7 @@ The auto-extractor will search for:
               <h4 onclick="this.parentElement.classList.toggle('collapsed'); this.setAttribute('aria-expanded', !this.parentElement.classList.contains('collapsed'))" tabindex="0" role="button" aria-expanded="true">Effect Size Helper</h4>
               <div class="extract-grid">
                 <div class="extract-field">
-                  <label>Effect Type</label>
+                  <label for="calc_effect_type">Effect Type</label>
                   <select id="calc_effect_type">
                     <option value="RR">Risk Ratio (RR)</option>
                     <option value="OR">Odds Ratio (OR)</option>
@@ -2826,7 +2838,7 @@ The auto-extractor will search for:
                   </select>
                 </div>
                 <div class="extract-field">
-                  <label>Continuity Correction</label>
+                  <label for="calc_cc">Continuity Correction</label>
                   <select id="calc_cc">
                     <option value="auto">Auto (if any zero)</option>
                     <option value="always">Always</option>
@@ -2834,20 +2846,20 @@ The auto-extractor will search for:
                   </select>
                 </div>
                 <div class="extract-field">
-                  <label>Events (Treatment)</label>
-                  <input type="number" id="calc_events_tx" placeholder="e.g., 386">
+                  <label for="calc_events_tx">Events (Treatment)</label>
+                  <input type="number" id="calc_events_tx" aria-label="e.g., 386" placeholder="e.g., 386">
                 </div>
                 <div class="extract-field">
-                  <label>Events (Control)</label>
-                  <input type="number" id="calc_events_ctrl" placeholder="e.g., 502">
+                  <label for="calc_events_ctrl">Events (Control)</label>
+                  <input type="number" id="calc_events_ctrl" aria-label="e.g., 502" placeholder="e.g., 502">
                 </div>
                 <div class="extract-field">
-                  <label>Total (Treatment)</label>
-                  <input type="number" id="calc_n_tx" placeholder="e.g., 2373">
+                  <label for="calc_n_tx">Total (Treatment)</label>
+                  <input type="number" id="calc_n_tx" aria-label="e.g., 2373" placeholder="e.g., 2373">
                 </div>
                 <div class="extract-field">
-                  <label>Total (Control)</label>
-                  <input type="number" id="calc_n_ctrl" placeholder="e.g., 2371">
+                  <label for="calc_n_ctrl">Total (Control)</label>
+                  <input type="number" id="calc_n_ctrl" aria-label="e.g., 2371" placeholder="e.g., 2371">
                 </div>
                 <div class="extract-field full">
                   <label>Calculation Notes</label>
@@ -2951,7 +2963,7 @@ The auto-extractor will search for:
                 </div>
               </div>
               <div class="rob-support">
-                <textarea id="rob_d1_support" placeholder="Supporting text/justification..."></textarea>
+                <textarea id="rob_d1_support" aria-label="Supporting text/justification..." placeholder="Supporting text/justification..."></textarea>
               </div>
             </div>
 
@@ -3021,7 +3033,7 @@ The auto-extractor will search for:
                 </div>
               </div>
               <div class="rob-support">
-                <textarea id="rob_d2_support" placeholder="Supporting text/justification..."></textarea>
+                <textarea id="rob_d2_support" aria-label="Supporting text/justification..." placeholder="Supporting text/justification..."></textarea>
               </div>
             </div>
 
@@ -3083,7 +3095,7 @@ The auto-extractor will search for:
                 </div>
               </div>
               <div class="rob-support">
-                <textarea id="rob_d3_support" placeholder="Supporting text/justification..."></textarea>
+                <textarea id="rob_d3_support" aria-label="Supporting text/justification..." placeholder="Supporting text/justification..."></textarea>
               </div>
             </div>
 
@@ -3154,7 +3166,7 @@ The auto-extractor will search for:
                 </div>
               </div>
               <div class="rob-support">
-                <textarea id="rob_d4_support" placeholder="Supporting text/justification..."></textarea>
+                <textarea id="rob_d4_support" aria-label="Supporting text/justification..." placeholder="Supporting text/justification..."></textarea>
               </div>
             </div>
 
@@ -3203,7 +3215,7 @@ The auto-extractor will search for:
                 </div>
               </div>
               <div class="rob-support">
-                <textarea id="rob_d5_support" placeholder="Supporting text/justification..."></textarea>
+                <textarea id="rob_d5_support" aria-label="Supporting text/justification..." placeholder="Supporting text/justification..."></textarea>
               </div>
             </div>
 
@@ -3229,7 +3241,7 @@ The auto-extractor will search for:
                 <button class="rob-btn high" onclick="setRoB('overall','high')">High</button>
               </div>
               <div class="rob-support">
-                <textarea id="rob_overall_support" placeholder="Overall assessment rationale..."></textarea>
+                <textarea id="rob_overall_support" aria-label="Overall assessment rationale..." placeholder="Overall assessment rationale..."></textarea>
               </div>
             </div>
 
@@ -3345,7 +3357,7 @@ The auto-extractor will search for:
     <div id="metaSettingsPanel" style="display: none; padding: 12px 16px; background: var(--bg-surface); border-bottom: 1px solid var(--border-color);">
       <div style="display: flex; gap: 24px; flex-wrap: wrap; align-items: center;">
         <div style="display: flex; align-items: center; gap: 8px;">
-          <label style="font-weight: 600; font-size: 0.85rem;">τ² Estimator:</label>
+          <label style="font-weight: 600; font-size: 0.85rem;" for="metaTau2Method">τ² Estimator:</label>
           <select id="metaTau2Method" onchange="updateMetaSettings()" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border-color);">
             <option value="DL">DerSimonian-Laird (default)</option>
             <option value="REML">REML (recommended)</option>
@@ -3387,7 +3399,7 @@ The auto-extractor will search for:
     </div>
     <div class="modal-body">
       <div class="search-box">
-        <input type="text" id="pubmedQuery" placeholder="Enter search query..." style="flex:1;">
+        <input type="text" id="pubmedQuery" aria-label="Enter search query..." placeholder="Enter search query..." style="flex:1;">
         <button class="primary" onclick="searchPubMed()" style="color:white;">Search</button>
       </div>
       <div id="pubmedResults" style="margin-top: 16px; max-height: 400px; overflow-y: auto;"></div>
@@ -3428,35 +3440,35 @@ The auto-extractor will search for:
         <h4>Badge</h4>
         <div class="extract-grid">
           <div class="extract-field">
-            <label>Terminal State</label>
+            <label for="tc_badge_terminal_state">Terminal State</label>
             <select id="tc_badge_terminal_state">
               <option value="SHIPPED">SHIPPED</option>
               <option value="REJECTED">REJECTED</option>
             </select>
           </div>
           <div class="extract-field">
-            <label>TruthCert Version</label>
+            <label for="tc_badge_version">TruthCert Version</label>
             <input type="text" id="tc_badge_version" value="3.1.0" readonly>
           </div>
           <div class="extract-field full">
-            <label>Bundle Hash</label>
-            <input type="text" id="tc_badge_bundle_hash" placeholder="sha256:...">
+            <label for="tc_badge_bundle_hash">Bundle Hash</label>
+            <input type="text" id="tc_badge_bundle_hash" aria-label="sha256:..." placeholder="sha256:...">
           </div>
           <div class="extract-field full">
-            <label>Ledger Ref</label>
-            <input type="text" id="tc_badge_ledger_ref" placeholder="append-only-ledger://...">
+            <label for="tc_badge_ledger_ref">Ledger Ref</label>
+            <input type="text" id="tc_badge_ledger_ref" aria-label="append-only-ledger://..." placeholder="append-only-ledger://...">
           </div>
           <div class="extract-field">
-            <label>Scope Lock Hash</label>
-            <input type="text" id="tc_badge_scope_lock_hash" placeholder="sha256:...">
+            <label for="tc_badge_scope_lock_hash">Scope Lock Hash</label>
+            <input type="text" id="tc_badge_scope_lock_hash" aria-label="sha256:..." placeholder="sha256:...">
           </div>
           <div class="extract-field">
-            <label>Validator Version</label>
-            <input type="text" id="tc_badge_validator_version" placeholder="policy_anchor.validator_version">
+            <label for="tc_badge_validator_version">Validator Version</label>
+            <input type="text" id="tc_badge_validator_version" aria-label="policy_anchor.validator_version" placeholder="policy_anchor.validator_version">
           </div>
           <div class="extract-field full">
-            <label>Validator Set Hash (optional)</label>
-            <input type="text" id="tc_badge_validator_set_hash" placeholder="sha256:...">
+            <label for="tc_badge_validator_set_hash">Validator Set Hash (optional)</label>
+            <input type="text" id="tc_badge_validator_set_hash" aria-label="sha256:..." placeholder="sha256:...">
           </div>
         </div>
       </div>
@@ -3465,7 +3477,7 @@ The auto-extractor will search for:
         <summary>Disclosure (required)</summary>
         <div class="extract-grid">
           <div class="extract-field">
-            <label>Witness Mode</label>
+            <label for="tc_disc_witness_mode">Witness Mode</label>
             <select id="tc_disc_witness_mode">
               <option value="">Select...</option>
               <option value="fixed">fixed</option>
@@ -3474,15 +3486,15 @@ The auto-extractor will search for:
             </select>
           </div>
           <div class="extract-field">
-            <label>Witness Count</label>
-            <input type="number" id="tc_disc_witness_count" placeholder="3">
+            <label for="tc_disc_witness_count">Witness Count</label>
+            <input type="number" id="tc_disc_witness_count" aria-label="3" placeholder="3">
           </div>
           <div class="extract-field full">
-            <label>Witness Families (comma-separated)</label>
-            <input type="text" id="tc_disc_witness_families" placeholder="familyA, familyB, familyC">
+            <label for="tc_disc_witness_families">Witness Families (comma-separated)</label>
+            <input type="text" id="tc_disc_witness_families" aria-label="familyA, familyB, familyC" placeholder="familyA, familyB, familyC">
           </div>
           <div class="extract-field">
-            <label>Heterogeneity Setting</label>
+            <label for="tc_disc_hetero_setting">Heterogeneity Setting</label>
             <select id="tc_disc_hetero_setting">
               <option value="">Select...</option>
               <option value="required">required</option>
@@ -3490,39 +3502,39 @@ The auto-extractor will search for:
             </select>
           </div>
           <div class="extract-field">
-            <label>Heterogeneity Achieved</label>
+            <label for="tc_disc_hetero_achieved">Heterogeneity Achieved</label>
             <select id="tc_disc_hetero_achieved">
               <option value="true">true</option>
               <option value="false">false</option>
             </select>
           </div>
           <div class="extract-field">
-            <label>External Refs Enabled</label>
+            <label for="tc_disc_external_refs">External Refs Enabled</label>
             <select id="tc_disc_external_refs">
               <option value="yes">yes</option>
               <option value="no">no</option>
             </select>
           </div>
           <div class="extract-field">
-            <label>Gold Standard Enabled</label>
+            <label for="tc_disc_gold_standard">Gold Standard Enabled</label>
             <select id="tc_disc_gold_standard">
               <option value="yes">yes</option>
               <option value="no">no</option>
             </select>
           </div>
           <div class="extract-field">
-            <label>RAG Enabled</label>
+            <label for="tc_disc_rag">RAG Enabled</label>
             <select id="tc_disc_rag">
               <option value="yes">yes</option>
               <option value="no">no</option>
             </select>
           </div>
           <div class="extract-field full">
-            <label>Escalations Triggered (comma-separated)</label>
-            <input type="text" id="tc_disc_escalations" placeholder="optional_list">
+            <label for="tc_disc_escalations">Escalations Triggered (comma-separated)</label>
+            <input type="text" id="tc_disc_escalations" aria-label="optional_list" placeholder="optional_list">
           </div>
           <div class="extract-field">
-            <label>Budget Mode</label>
+            <label for="tc_disc_budget_mode">Budget Mode</label>
             <select id="tc_disc_budget_mode">
               <option value="">Select...</option>
               <option value="off">off</option>
@@ -3531,35 +3543,35 @@ The auto-extractor will search for:
             </select>
           </div>
           <div class="extract-field">
-            <label>Budget Exceeded</label>
+            <label for="tc_disc_budget_exceeded">Budget Exceeded</label>
             <select id="tc_disc_budget_exceeded">
               <option value="false">false</option>
               <option value="true">true</option>
             </select>
           </div>
           <div class="extract-field">
-            <label>Validator Version</label>
-            <input type="text" id="tc_disc_validator_version" placeholder="policy_anchor.validator_version">
+            <label for="tc_disc_validator_version">Validator Version</label>
+            <input type="text" id="tc_disc_validator_version" aria-label="policy_anchor.validator_version" placeholder="policy_anchor.validator_version">
           </div>
           <div class="extract-field">
-            <label>Validator Set Hash</label>
-            <input type="text" id="tc_disc_validator_set_hash" placeholder="sha256:...">
+            <label for="tc_disc_validator_set_hash">Validator Set Hash</label>
+            <input type="text" id="tc_disc_validator_set_hash" aria-label="sha256:..." placeholder="sha256:...">
           </div>
           <div class="extract-field full">
-            <label>Bundle Hash</label>
-            <input type="text" id="tc_disc_bundle_hash" placeholder="sha256:...">
+            <label for="tc_disc_bundle_hash">Bundle Hash</label>
+            <input type="text" id="tc_disc_bundle_hash" aria-label="sha256:..." placeholder="sha256:...">
           </div>
           <div class="extract-field full">
-            <label>Ledger Ref</label>
-            <input type="text" id="tc_disc_ledger_ref" placeholder="append-only-ledger://...">
+            <label for="tc_disc_ledger_ref">Ledger Ref</label>
+            <input type="text" id="tc_disc_ledger_ref" aria-label="append-only-ledger://..." placeholder="append-only-ledger://...">
           </div>
           <div class="extract-field">
-            <label>Timestamp UTC</label>
-            <input type="text" id="tc_disc_timestamp" placeholder="YYYY-MM-DDTHH:MM:SSZ">
+            <label for="tc_disc_timestamp">Timestamp UTC</label>
+            <input type="text" id="tc_disc_timestamp" aria-label="YYYY-MM-DDTHH:MM:SSZ" placeholder="YYYY-MM-DDTHH:MM:SSZ">
           </div>
           <div class="extract-field">
-            <label>Run ID</label>
-            <input type="text" id="tc_disc_run_id" placeholder="run-id">
+            <label for="tc_disc_run_id">Run ID</label>
+            <input type="text" id="tc_disc_run_id" aria-label="run-id" placeholder="run-id">
           </div>
         </div>
       </details>
@@ -3568,39 +3580,39 @@ The auto-extractor will search for:
         <summary>Policy Anchor (required)</summary>
         <div class="extract-grid">
           <div class="extract-field full">
-            <label>Scope Lock Ref</label>
-            <input type="text" id="tc_anchor_scope_lock_ref" placeholder="ref">
+            <label for="tc_anchor_scope_lock_ref">Scope Lock Ref</label>
+            <input type="text" id="tc_anchor_scope_lock_ref" aria-label="ref" placeholder="ref">
           </div>
           <div class="extract-field">
-            <label>Validator Version</label>
-            <input type="text" id="tc_anchor_validator_version" placeholder="string">
+            <label for="tc_anchor_validator_version">Validator Version</label>
+            <input type="text" id="tc_anchor_validator_version" aria-label="string" placeholder="string">
           </div>
           <div class="extract-field">
-            <label>Validator Set Hash</label>
-            <input type="text" id="tc_anchor_validator_set_hash" placeholder="sha256:...">
+            <label for="tc_anchor_validator_set_hash">Validator Set Hash</label>
+            <input type="text" id="tc_anchor_validator_set_hash" aria-label="sha256:..." placeholder="sha256:...">
           </div>
           <div class="extract-field">
-            <label>Timestamp</label>
-            <input type="text" id="tc_anchor_timestamp" placeholder="YYYY-MM-DDTHH:MM:SSZ">
+            <label for="tc_anchor_timestamp">Timestamp</label>
+            <input type="text" id="tc_anchor_timestamp" aria-label="YYYY-MM-DDTHH:MM:SSZ" placeholder="YYYY-MM-DDTHH:MM:SSZ">
           </div>
           <div class="extract-field">
-            <label>Threshold: Fact Agreement</label>
+            <label for="tc_anchor_threshold_fact">Threshold: Fact Agreement</label>
             <input type="number" step="0.01" id="tc_anchor_threshold_fact">
           </div>
           <div class="extract-field">
-            <label>Threshold: Interpretation</label>
+            <label for="tc_anchor_threshold_interp">Threshold: Interpretation</label>
             <input type="number" step="0.01" id="tc_anchor_threshold_interp">
           </div>
           <div class="extract-field">
-            <label>Threshold: Blindspot R</label>
+            <label for="tc_anchor_threshold_blindspot">Threshold: Blindspot R</label>
             <input type="number" step="0.01" id="tc_anchor_threshold_blindspot">
           </div>
           <div class="extract-field">
-            <label>Threshold: Material Disagreement</label>
+            <label for="tc_anchor_threshold_material">Threshold: Material Disagreement</label>
             <input type="number" step="0.01" id="tc_anchor_threshold_material">
           </div>
           <div class="extract-field">
-            <label>Witness Mode</label>
+            <label for="tc_anchor_witness_mode">Witness Mode</label>
             <select id="tc_anchor_witness_mode">
               <option value="">Select...</option>
               <option value="fixed">fixed</option>
@@ -3609,15 +3621,15 @@ The auto-extractor will search for:
             </select>
           </div>
           <div class="extract-field">
-            <label>Min Witnesses</label>
+            <label for="tc_anchor_min_witnesses">Min Witnesses</label>
             <input type="number" id="tc_anchor_min_witnesses">
           </div>
           <div class="extract-field">
-            <label>Max Witnesses</label>
+            <label for="tc_anchor_max_witnesses">Max Witnesses</label>
             <input type="number" id="tc_anchor_max_witnesses">
           </div>
           <div class="extract-field">
-            <label>Heterogeneity</label>
+            <label for="tc_anchor_heterogeneity">Heterogeneity</label>
             <select id="tc_anchor_heterogeneity">
               <option value="">Select...</option>
               <option value="required">required</option>
@@ -3625,11 +3637,11 @@ The auto-extractor will search for:
             </select>
           </div>
           <div class="extract-field">
-            <label>Convergence Threshold</label>
+            <label for="tc_anchor_convergence">Convergence Threshold</label>
             <input type="number" step="0.01" id="tc_anchor_convergence">
           </div>
           <div class="extract-field">
-            <label>Budget Enforcement</label>
+            <label for="tc_anchor_budget_mode">Budget Enforcement</label>
             <select id="tc_anchor_budget_mode">
               <option value="">Select...</option>
               <option value="off">off</option>
@@ -3638,41 +3650,41 @@ The auto-extractor will search for:
             </select>
           </div>
           <div class="extract-field">
-            <label>Max Tokens per Bundle</label>
+            <label for="tc_anchor_budget_tokens">Max Tokens per Bundle</label>
             <input type="number" id="tc_anchor_budget_tokens">
           </div>
           <div class="extract-field">
-            <label>Max Cost USD per Bundle</label>
+            <label for="tc_anchor_budget_cost">Max Cost USD per Bundle</label>
             <input type="number" step="0.01" id="tc_anchor_budget_cost">
           </div>
           <div class="extract-field">
-            <label>Alert Threshold Pct</label>
+            <label for="tc_anchor_budget_alert">Alert Threshold Pct</label>
             <input type="number" step="0.01" id="tc_anchor_budget_alert">
           </div>
           <div class="extract-field">
-            <label>External Refs Enabled</label>
+            <label for="tc_anchor_external_refs">External Refs Enabled</label>
             <select id="tc_anchor_external_refs">
               <option value="true">true</option>
               <option value="false">false</option>
             </select>
           </div>
           <div class="extract-field">
-            <label>RAG Enabled</label>
+            <label for="tc_anchor_rag">RAG Enabled</label>
             <select id="tc_anchor_rag">
               <option value="true">true</option>
               <option value="false">false</option>
             </select>
           </div>
           <div class="extract-field">
-            <label>Gold Standard Enabled</label>
+            <label for="tc_anchor_gold_standard">Gold Standard Enabled</label>
             <select id="tc_anchor_gold_standard">
               <option value="true">true</option>
               <option value="false">false</option>
             </select>
           </div>
           <div class="extract-field full">
-            <label>Promotion Policy</label>
-            <input type="text" id="tc_anchor_promotion_policy" placeholder="balanced|safety|productivity">
+            <label for="tc_anchor_promotion_policy">Promotion Policy</label>
+            <input type="text" id="tc_anchor_promotion_policy" aria-label="balanced|safety|productivity" placeholder="balanced|safety|productivity">
           </div>
         </div>
       </details>
@@ -3681,28 +3693,28 @@ The auto-extractor will search for:
         <summary>Scope Lock (required)</summary>
         <div class="extract-grid">
           <div class="extract-field full">
-            <label>Endpoint</label>
-            <input type="text" id="tc_scope_endpoint" placeholder="primary outcome">
+            <label for="tc_scope_endpoint">Endpoint</label>
+            <input type="text" id="tc_scope_endpoint" aria-label="primary outcome" placeholder="primary outcome">
           </div>
           <div class="extract-field full">
-            <label>Entities (comma-separated)</label>
-            <input type="text" id="tc_scope_entities" placeholder="armA, armB">
+            <label for="tc_scope_entities">Entities (comma-separated)</label>
+            <input type="text" id="tc_scope_entities" aria-label="armA, armB" placeholder="armA, armB">
           </div>
           <div class="extract-field">
-            <label>Units</label>
-            <input type="text" id="tc_scope_units" placeholder="units">
+            <label for="tc_scope_units">Units</label>
+            <input type="text" id="tc_scope_units" aria-label="units" placeholder="units">
           </div>
           <div class="extract-field">
-            <label>Timepoint</label>
-            <input type="text" id="tc_scope_timepoint" placeholder="timepoint">
+            <label for="tc_scope_timepoint">Timepoint</label>
+            <input type="text" id="tc_scope_timepoint" aria-label="timepoint" placeholder="timepoint">
           </div>
           <div class="extract-field full">
-            <label>Inclusion Snippet</label>
+            <label for="tc_scope_inclusion_snippet">Inclusion Snippet</label>
             <textarea id="tc_scope_inclusion_snippet"></textarea>
           </div>
           <div class="extract-field full">
-            <label>Source Hash</label>
-            <input type="text" id="tc_scope_source_hash" placeholder="sha256:...">
+            <label for="tc_scope_source_hash">Source Hash</label>
+            <input type="text" id="tc_scope_source_hash" aria-label="sha256:..." placeholder="sha256:...">
           </div>
         </div>
       </details>
@@ -3710,23 +3722,23 @@ The auto-extractor will search for:
       <details class="tc-details">
         <summary>Generated Outputs</summary>
         <div class="extract-field full">
-          <label>Badge Card</label>
+          <label for="tcOutputBadge">Badge Card</label>
           <textarea id="tcOutputBadge" class="tc-output" readonly></textarea>
         </div>
         <div class="extract-field full">
-          <label>Disclosure YAML</label>
+          <label for="tcOutputDisclosure">Disclosure YAML</label>
           <textarea id="tcOutputDisclosure" class="tc-output" readonly></textarea>
         </div>
         <div class="extract-field full">
-          <label>Policy Anchor YAML</label>
+          <label for="tcOutputPolicyAnchor">Policy Anchor YAML</label>
           <textarea id="tcOutputPolicyAnchor" class="tc-output" readonly></textarea>
         </div>
         <div class="extract-field full">
-          <label>Scope Lock YAML</label>
+          <label for="tcOutputScopeLock">Scope Lock YAML</label>
           <textarea id="tcOutputScopeLock" class="tc-output" readonly></textarea>
         </div>
         <div class="extract-field full">
-          <label>Provenance YAML</label>
+          <label for="tcOutputProvenance">Provenance YAML</label>
           <textarea id="tcOutputProvenance" class="tc-output" readonly></textarea>
         </div>
       </details>
@@ -9510,7 +9522,7 @@ function showOISCalculator() {
 
         <div style="display: grid; gap: 12px; margin-bottom: 20px;">
           <div>
-            <label style="font-weight: 600; display: block; margin-bottom: 4px;">Outcome Type</label>
+            <label style="font-weight: 600; display: block; margin-bottom: 4px;" for="oisEffectType">Outcome Type</label>
             <select id="oisEffectType" onchange="updateOISForm()" style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border);">
               <option value="binary">Binary (events)</option>
               <option value="continuous">Continuous (means)</option>
@@ -9520,13 +9532,13 @@ function showOISCalculator() {
           <div id="oisBinaryParams">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
               <div>
-                <label style="display: block; margin-bottom: 4px;">Control Event Rate</label>
+                <label style="display: block; margin-bottom: 4px;" for="oisControlRate">Control Event Rate</label>
                 <input type="number" id="oisControlRate" value="0.10" min="0.01" max="0.99" step="0.01"
                        style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border);"/>
                 <span style="font-size: 0.75rem; color: var(--text-light);">e.g., 0.10 = 10%</span>
               </div>
               <div>
-                <label style="display: block; margin-bottom: 4px;">Target RRR</label>
+                <label style="display: block; margin-bottom: 4px;" for="oisTargetRRR">Target RRR</label>
                 <input type="number" id="oisTargetRRR" value="0.25" min="0.05" max="0.90" step="0.05"
                        style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border);"/>
                 <span style="font-size: 0.75rem; color: var(--text-light);">Relative risk reduction (e.g., 0.25 = 25%)</span>
@@ -9537,12 +9549,12 @@ function showOISCalculator() {
           <div id="oisContinuousParams" style="display: none;">
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
               <div>
-                <label style="display: block; margin-bottom: 4px;">Control SD</label>
+                <label style="display: block; margin-bottom: 4px;" for="oisControlSD">Control SD</label>
                 <input type="number" id="oisControlSD" value="1" min="0.1" step="0.1"
                        style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border);"/>
               </div>
               <div>
-                <label style="display: block; margin-bottom: 4px;">Target Difference (MCID)</label>
+                <label style="display: block; margin-bottom: 4px;" for="oisTargetDiff">Target Difference (MCID)</label>
                 <input type="number" id="oisTargetDiff" value="0.5" min="0.1" step="0.1"
                        style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border);"/>
               </div>
@@ -9551,12 +9563,12 @@ function showOISCalculator() {
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div>
-              <label style="display: block; margin-bottom: 4px;">Alpha (two-sided)</label>
+              <label style="display: block; margin-bottom: 4px;" for="oisAlpha">Alpha (two-sided)</label>
               <input type="number" id="oisAlpha" value="0.05" min="0.01" max="0.10" step="0.01"
                      style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border);"/>
             </div>
             <div>
-              <label style="display: block; margin-bottom: 4px;">Power (1 - Beta)</label>
+              <label style="display: block; margin-bottom: 4px;" for="oisPower">Power (1 - Beta)</label>
               <input type="number" id="oisPower" value="0.80" min="0.70" max="0.99" step="0.05"
                      style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border);"/>
             </div>
@@ -9564,13 +9576,13 @@ function showOISCalculator() {
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; padding-top: 12px; border-top: 1px solid var(--border);">
             <div>
-              <label style="display: block; margin-bottom: 4px;">Observed N (optional)</label>
-              <input type="number" id="oisObservedN" placeholder="Total sample size"
+              <label style="display: block; margin-bottom: 4px;" for="oisObservedN">Observed N (optional)</label>
+              <input type="number" id="oisObservedN" aria-label="Total sample size" placeholder="Total sample size"
                      style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border);"/>
             </div>
             <div>
-              <label style="display: block; margin-bottom: 4px;">Observed Events (optional)</label>
-              <input type="number" id="oisObservedEvents" placeholder="Total events"
+              <label style="display: block; margin-bottom: 4px;" for="oisObservedEvents">Observed Events (optional)</label>
+              <input type="number" id="oisObservedEvents" aria-label="Total events" placeholder="Total events"
                      style="width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border);"/>
             </div>
           </div>
@@ -15783,7 +15795,7 @@ function showMetaRegression() {
       <div class="modal-body" style="max-height: 700px; overflow-y: auto;">
         <div class="card" style="padding: 16px; margin-bottom: 20px;">
           <h4 style="margin: 0 0 12px 0;">Select Covariate</h4>
-          <select id="metaRegCovariate" onchange="runMetaRegression()" style="padding: 8px; width: 200px;">
+          <select  aria-label="Select Covariate" id="metaRegCovariate" onchange="runMetaRegression()" style="padding: 8px; width: 200px;">
             ${hasYear ? '<option value="year">Publication Year</option>' : ''}
             ${hasSampleSize ? '<option value="sampleSize">Sample Size</option>' : ''}
           </select>
@@ -15976,11 +15988,11 @@ function showMultipleMetaRegression() {
         <div class="card" style="padding: 16px; margin-bottom: 20px;">
           <h4 style="margin: 0 0 12px 0;">Select Covariates (minimum 1, maximum 5)</h4>
           <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
-            <label><input type="checkbox" id="mmr_year" ${covariateCounts.year >= 3 ? '' : 'disabled'}> Year (n=${covariateCounts.year})</label>
-            <label><input type="checkbox" id="mmr_sampleSize" ${covariateCounts.sampleSize >= 3 ? '' : 'disabled'}> Sample Size (n=${covariateCounts.sampleSize})</label>
-            <label><input type="checkbox" id="mmr_meanAge" ${covariateCounts.meanAge >= 3 ? '' : 'disabled'}> Mean Age (n=${covariateCounts.meanAge})</label>
-            <label><input type="checkbox" id="mmr_percentFemale" ${covariateCounts.percentFemale >= 3 ? '' : 'disabled'}> % Female (n=${covariateCounts.percentFemale})</label>
-            <label><input type="checkbox" id="mmr_followUp" ${covariateCounts.followUpMonths >= 3 ? '' : 'disabled'}> Follow-up Months (n=${covariateCounts.followUpMonths})</label>
+            <label><input type="checkbox" id="mmr_year" ${covariateCounts.year aria-label="= 3 ? '' : 'disabled'}> Year (n=${covariateCounts.year})" >= 3 ? '' : 'disabled'}> Year (n=${covariateCounts.year})</label>
+            <label><input type="checkbox" id="mmr_sampleSize" ${covariateCounts.sampleSize aria-label="= 3 ? '' : 'disabled'}> Sample Size (n=${covariateCounts.sampleSize})" >= 3 ? '' : 'disabled'}> Sample Size (n=${covariateCounts.sampleSize})</label>
+            <label><input type="checkbox" id="mmr_meanAge" ${covariateCounts.meanAge aria-label="= 3 ? '' : 'disabled'}> Mean Age (n=${covariateCounts.meanAge})" >= 3 ? '' : 'disabled'}> Mean Age (n=${covariateCounts.meanAge})</label>
+            <label><input type="checkbox" id="mmr_percentFemale" ${covariateCounts.percentFemale aria-label="= 3 ? '' : 'disabled'}> % Female (n=${covariateCounts.percentFemale})" >= 3 ? '' : 'disabled'}> % Female (n=${covariateCounts.percentFemale})</label>
+            <label><input type="checkbox" id="mmr_followUp" ${covariateCounts.followUpMonths aria-label="= 3 ? '' : 'disabled'}> Follow-up Months (n=${covariateCounts.followUpMonths})" >= 3 ? '' : 'disabled'}> Follow-up Months (n=${covariateCounts.followUpMonths})</label>
           </div>
           <button onclick="runMultipleMetaReg()" style="margin-top: 16px;">Run Analysis</button>
         </div>
@@ -16154,7 +16166,7 @@ function showSubgroupAnalysis() {
       <div class="modal-body" style="max-height: 700px; overflow-y: auto;">
         <div class="card" style="padding: 16px; margin-bottom: 20px;">
           <h4 style="margin: 0 0 12px 0;">Select Grouping Variable</h4>
-          <select id="subgroupVar" onchange="runSubgroupAnalysis()" style="padding: 8px; width: 250px;">
+          <select  aria-label="Select Grouping Variable" id="subgroupVar" onchange="runSubgroupAnalysis()" style="padding: 8px; width: 250px;">
             ${groupOptions.map(g => `<option value="${g.key}">${g.name}</option>`).join('')}
           </select>
           <select id="subgroupMethod" onchange="runSubgroupAnalysis()" style="padding: 8px; margin-left: 12px;">
@@ -16282,7 +16294,7 @@ function showGOSHAnalysis() {
 
         <div style="display: flex; gap: 12px; margin-bottom: 20px;">
           <div class="input-group" style="flex: 1;">
-            <label>Iterations:</label>
+            <label for="goshIter">Iterations:</label>
             <input type="number" id="goshIter" value="1000" step="500" min="100" max="5000" style="width: 100%; padding: 8px;">
           </div>
           <button class="primary" onclick="runGOSH()" style="align-self: flex-end; color: white;">Run Analysis</button>
@@ -16535,13 +16547,15 @@ function showMultivariateMA() {
           <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px;">
             Enter data for studies with 2 correlated outcomes (e.g., sensitivity/specificity, or two timepoints).
           </p>
-          <textarea id="multivariateData" style="width: 100%; height: 150px; font-family: monospace; font-size: 0.85rem;" placeholder="Study,Effect1,SE1,Effect2,SE2,Correlation
+          <textarea id="multivariateData" style="width: 100%; height: 150px; font-family: monospace; font-size: 0.85rem;" aria-label="Study,Effect1,SE1,Effect2,SE2,Correlation
+Study1,0.5,0.1,0.3,0.12,0.5
+Study2,0.6,0.15,0.4,0.1,0.5" placeholder="Study,Effect1,SE1,Effect2,SE2,Correlation
 Study1,0.5,0.1,0.3,0.12,0.5
 Study2,0.6,0.15,0.4,0.1,0.5"></textarea>
           <div style="margin-top: 12px; display: flex; gap: 12px;">
             <label style="display: flex; align-items: center; gap: 6px;">
               Assumed correlation:
-              <input type="number" id="mvCorrelation" value="0.5" min="0" max="1" step="0.1" style="width: 70px;">
+              <input type="number" aria-label="Assumed correlation" id="mvCorrelation" value="0.5" min="0" max="1" step="0.1" style="width: 70px;">
             </label>
             <button onclick="runMultivariateMA()">Run Analysis</button>
             <button onclick="loadMVExample()">Load Example</button>
@@ -16667,7 +16681,11 @@ function showDoseResponse() {
           <p style="font-size: 0.85rem; color: var(--text-light); margin-bottom: 12px;">
             Enter dose-response data. Each row: Study, Dose (numeric), Log(RR), SE
           </p>
-          <textarea id="doseResponseData" style="width: 100%; height: 150px; font-family: monospace; font-size: 0.85rem;" placeholder="Study,Dose,LogRR,SE
+          <textarea id="doseResponseData" style="width: 100%; height: 150px; font-family: monospace; font-size: 0.85rem;" aria-label="Study,Dose,LogRR,SE
+Study1,10,0.1,0.05
+Study1,20,0.18,0.06
+Study2,15,0.12,0.04
+Study2,30,0.22,0.05" placeholder="Study,Dose,LogRR,SE
 Study1,10,0.1,0.05
 Study1,20,0.18,0.06
 Study2,15,0.12,0.04
@@ -20188,7 +20206,7 @@ function openPICOBuilder() {
     <div class="detail-section">
       <label style="display: block; margin-bottom: 8px;">
         <strong>Rule Set Name:</strong>
-        <input type="text" id="picoRuleName" value="${ruleName}" style="width: 100%; padding: 8px; margin-top: 4px;">
+        <input type="text"  aria-label="Rule Set Name" id="picoRuleName" value="${ruleName}" style="width: 100%; padding: 8px; margin-top: 4px;">
       </label>
     </div>
 
@@ -20200,15 +20218,15 @@ function openPICOBuilder() {
         ` : `
           <div class="extract-grid">
             <div class="extract-field full">
-              <label>Include Terms (comma-separated)</label>
+              <label for="pico_include_${level.level}">Include Terms (comma-separated)</label>
               <textarea id="pico_include_${level.level}" style="min-height: 50px;">${escapeHtml((level.include_terms || []).join(', '))}</textarea>
             </div>
             <div class="extract-field full">
-              <label>Exclude Terms (comma-separated)</label>
+              <label for="pico_exclude_${level.level}">Exclude Terms (comma-separated)</label>
               <textarea id="pico_exclude_${level.level}" style="min-height: 50px;">${escapeHtml((level.exclude_terms || []).join(', '))}</textarea>
             </div>
             <div class="extract-field">
-              <label>Exclusion Reason</label>
+              <label for="pico_reason_${level.level}">Exclusion Reason</label>
               <input type="text" id="pico_reason_${level.level}" value="${escapeAttr(level.reason || '')}">
             </div>
           </div>
@@ -24442,7 +24460,7 @@ const LivingSRManager = {
           </div>
 
           <div class="form-group" style="margin-bottom: 16px;">
-            <label><strong>Search Schedule</strong></label>
+            <label for="livingSRSchedule"><strong>Search Schedule</strong></label>
             <select id="livingSRSchedule" style="width: 100%; padding: 8px; margin-top: 4px;">
               <option value="weekly" ${this.config.schedule === 'weekly' ? 'selected' : ''}>Weekly</option>
               <option value="biweekly" ${this.config.schedule === 'biweekly' ? 'selected' : ''}>Bi-weekly</option>
@@ -24457,7 +24475,7 @@ const LivingSRManager = {
               One query per line. These will be searched automatically.
             </p>
             <textarea id="livingSRQueries" rows="4" style="width: 100%; padding: 8px; margin-top: 4px;"
-              placeholder="e.g., (aspirin OR acetylsalicylic acid) AND myocardial infarction AND randomized"
+              aria-label="e.g., (aspirin OR acetylsalicylic acid) AND myocardial infarction AND randomized" placeholder="e.g., (aspirin OR acetylsalicylic acid) AND myocardial infarction AND randomized"
             >${this.config.searchQueries.map(q => q.query).join('\n')}</textarea>
           </div>
 
@@ -25019,7 +25037,7 @@ function showCTGovSearch() {
         <div class="input-group" style="margin-bottom: 16px;">
           <label>Condition / Disease:</label>
           <div style="display: flex; gap: 8px;">
-            <input type="text" id="ctgovCondition" placeholder="e.g., diabetes, heart failure" style="flex: 1; padding: 10px;">
+            <input type="text" id="ctgovCondition" aria-label="e.g., diabetes, heart failure" placeholder="e.g., diabetes, heart failure" style="flex: 1; padding: 10px;">
             <button class="primary" onclick="runCTGovSearch()" style="color: white;">Search</button>
             <button onclick="compareCTGovStrategies()">Compare All</button>
           </div>
@@ -25035,7 +25053,7 @@ function showCTGovSearch() {
         </div>
 
         <div style="margin-bottom: 16px;">
-          <label style="font-weight: 600; margin-bottom: 8px; display: block;">Search Strategy:</label>
+          <label style="font-weight: 600; margin-bottom: 8px; display: block;" for="ctgovStrategy">Search Strategy:</label>
           <select id="ctgovStrategy" style="width: 100%; padding: 10px;">
             ${CTGovSearch.STRATEGIES.map(s =>
               `<option value="${s.id}">${s.id}: ${s.name} (Recall: ${s.recall}%, Precision: ${s.precision}%)</option>`
@@ -25286,7 +25304,7 @@ function showSearchTranslator() {
       </div>
       <div class="modal-body" style="max-height: 600px; overflow-y: auto;">
         <div class="input-group" style="margin-bottom: 16px;">
-          <label>PubMed Search Query:</label>
+          <label for="translatorInput">PubMed Search Query:</label>
           <textarea id="translatorInput" rows="4" placeholder='e.g., "diabetes mellitus"[MeSH Terms] OR diabetes[tiab]' style="width: 100%; padding: 10px;"></textarea>
         </div>
         <button class="primary" onclick="translateSearch()" style="color: white; margin-bottom: 16px;">Translate to All Databases</button>
@@ -26652,8 +26670,8 @@ function showMultiRegistrySearch() {
       </div>
       <div class="modal-body" style="max-height: 600px; overflow-y: auto;">
         <div class="input-group" style="margin-bottom: 16px;">
-          <label>Condition / Disease:</label>
-          <input type="text" id="multiRegCondition" placeholder="e.g., diabetes, heart failure" style="width: 100%; padding: 10px;">
+          <label for="multiRegCondition">Condition / Disease:</label>
+          <input type="text" id="multiRegCondition" aria-label="e.g., diabetes, heart failure" placeholder="e.g., diabetes, heart failure" style="width: 100%; padding: 10px;">
         </div>
 
         <div style="margin-bottom: 16px;">
@@ -26661,7 +26679,7 @@ function showMultiRegistrySearch() {
           <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px;">
             ${Object.entries(MultiRegistrySearch.registries).map(([key, reg]) => `
               <label style="display: flex; align-items: center; gap: 6px;">
-                <input type="checkbox" id="reg_${key}" ${reg.enabled ? 'checked' : ''}>
+                <input type="checkbox" id="reg_${key}" ${reg.enabled ? 'checked' : ''} aria-label="${reg.name}">
                 ${reg.name}
               </label>
             `).join('')}
@@ -26766,8 +26784,12 @@ function showIPDMetaAnalysis() {
         </div>
 
         <div class="input-group">
-          <label>Paste IPD Data (CSV format: study_id, patient_id, treatment, outcome):</label>
-          <textarea id="ipdData" rows="8" placeholder="study_id,patient_id,treatment,outcome
+          <label for="ipdData">Paste IPD Data (CSV format: study_id, patient_id, treatment, outcome):</label>
+          <textarea id="ipdData" rows="8" aria-label="study_id,patient_id,treatment,outcome
+Study1,1,1,5.2
+Study1,2,0,4.8
+Study1,3,1,6.1
+..." placeholder="study_id,patient_id,treatment,outcome
 Study1,1,1,5.2
 Study1,2,0,4.8
 Study1,3,1,6.1
@@ -26887,8 +26909,10 @@ function showSurvivalMA() {
       </div>
       <div class="modal-body">
         <div class="input-group">
-          <label>Enter Hazard Ratio Data (one study per line: HR, CI_lower, CI_upper):</label>
-          <textarea id="survivalData" rows="6" placeholder="0.75, 0.60, 0.95
+          <label for="survivalData">Enter Hazard Ratio Data (one study per line: HR, CI_lower, CI_upper):</label>
+          <textarea id="survivalData" rows="6" aria-label="0.75, 0.60, 0.95
+0.82, 0.70, 0.96
+0.68, 0.55, 0.84" placeholder="0.75, 0.60, 0.95
 0.82, 0.70, 0.96
 0.68, 0.55, 0.84" style="width: 100%; font-family: monospace;"></textarea>
         </div>
@@ -26967,14 +26991,16 @@ function showProportionMA() {
       </div>
       <div class="modal-body">
         <div class="input-group">
-          <label>Enter Data (events, total per line):</label>
-          <textarea id="propData" rows="6" placeholder="15, 100
+          <label for="propData">Enter Data (events, total per line):</label>
+          <textarea id="propData" rows="6" aria-label="15, 100
+22, 150
+8, 80" placeholder="15, 100
 22, 150
 8, 80" style="width: 100%; font-family: monospace;"></textarea>
         </div>
 
         <div style="margin-bottom: 16px;">
-          <label>Transformation Method:</label>
+          <label for="propMethod">Transformation Method:</label>
           <select id="propMethod" style="padding: 8px; width: 100%;">
             <option value="freeman-tukey">Freeman-Tukey Double Arcsine (recommended)</option>
             <option value="logit">Logit</option>
@@ -27179,7 +27205,7 @@ function showAMSTAR2() {
     <form id="amstar2Form">
       ${UmbrellaReview.AMSTAR2_DOMAINS.map(d => `
         <div style="margin-bottom: 12px; padding: 10px; background: ${d.critical ? 'rgba(239,68,68,0.1)' : 'var(--bg-surface)'}; border-radius: 6px;">
-          <label style="display: block; margin-bottom: 6px;">
+          <label style="display: block; margin-bottom: 6px;" for="amstar_${d.id}">
             ${d.id}. ${d.text} ${d.critical ? '<span style="color: var(--danger);">(Critical)</span>' : ''}
           </label>
           <select id="amstar_${d.id}" style="padding: 6px; width: 150px;">
@@ -27221,7 +27247,7 @@ function showOverlapCalculator() {
       Calculate overlap between systematic reviews based on shared primary studies.
     </p>
     <div class="input-group">
-      <label>Enter review data (JSON format):</label>
+      <label for="ccaData">Enter review data (JSON format):</label>
       <textarea id="ccaData" rows="8" placeholder='[
   {"id": "Review1", "studies": ["Smith2020", "Jones2019", "Lee2021"]},
   {"id": "Review2", "studies": ["Smith2020", "Brown2018", "Lee2021"]},
@@ -27289,20 +27315,20 @@ function showProtocolBuilder() {
       </div>
       <div class="modal-body" style="max-height: 600px; overflow-y: auto;">
         <div class="input-group">
-          <label>Review Title:</label>
-          <input type="text" id="protocolTitle" placeholder="e.g., GLP-1 agonists for weight loss in obesity" style="width: 100%; padding: 10px;">
+          <label for="protocolTitle">Review Title:</label>
+          <input type="text" id="protocolTitle" aria-label="e.g., GLP-1 agonists for weight loss in obesity" placeholder="e.g., GLP-1 agonists for weight loss in obesity" style="width: 100%; padding: 10px;">
         </div>
 
         <h4 style="margin: 16px 0 8px 0;">PICO Framework</h4>
         ${Object.entries(ProtocolBuilder.templates.PICO).map(([key, val]) => `
           <div class="input-group">
-            <label>${key} - ${val.label}:</label>
-            <input type="text" id="pico_${key}" placeholder="${val.placeholder}" style="width: 100%; padding: 10px;">
+            <label for="pico_${key}">${key} - ${val.label}:</label>
+            <input type="text" id="pico_${key}" aria-label="${val.placeholder}" placeholder="${val.placeholder}" style="width: 100%; padding: 10px;">
           </div>
         `).join('')}
 
         <div class="input-group">
-          <label>Risk of Bias Tool:</label>
+          <label for="protocolRoB">Risk of Bias Tool:</label>
           <select id="protocolRoB" style="padding: 10px; width: 100%;">
             <option value="Cochrane Risk of Bias 2.0">Cochrane RoB 2.0 (RCTs)</option>
             <option value="ROBINS-I">ROBINS-I (Non-randomized)</option>
@@ -27403,7 +27429,7 @@ function showCorrelationMA() {
         </p>
 
         <div class="input-group">
-          <label>Correlation Data (JSON format):</label>
+          <label for="corrStudiesInput">Correlation Data (JSON format):</label>
           <textarea id="corrStudiesInput" rows="10" style="width: 100%; font-family: monospace; padding: 10px;" placeholder='[
   {"study": "Smith 2020", "r": 0.45, "n": 120},
   {"study": "Jones 2021", "r": 0.52, "n": 85},
@@ -27412,7 +27438,7 @@ function showCorrelationMA() {
         </div>
 
         <div class="input-group">
-          <label>Estimation Method:</label>
+          <label for="corrMethodSelect">Estimation Method:</label>
           <select id="corrMethodSelect" style="padding: 10px;">
             <option value="REML">REML (Recommended)</option>
             <option value="DL">DerSimonian-Laird</option>
@@ -27496,7 +27522,7 @@ function showCrossoverMA() {
         </p>
 
         <div class="input-group">
-          <label>Crossover Study Data (JSON format):</label>
+          <label for="crossoverStudiesInput">Crossover Study Data (JSON format):</label>
           <textarea id="crossoverStudiesInput" rows="10" style="width: 100%; font-family: monospace; padding: 10px;" placeholder='[
   {"study": "Trial A", "mean_diff": -2.5, "sd_diff": 4.2, "n": 30},
   {"study": "Trial B", "mean_diff": -1.8, "sd_diff": 3.8, "n": 45},
@@ -27582,7 +27608,7 @@ function showClusterRCTMA() {
         </p>
 
         <div class="input-group">
-          <label>Cluster RCT Data (JSON format):</label>
+          <label for="clusterStudiesInput">Cluster RCT Data (JSON format):</label>
           <textarea id="clusterStudiesInput" rows="10" style="width: 100%; font-family: monospace; padding: 10px;" placeholder='[
   {"study": "Cluster A", "yi": 0.35, "vi": 0.04, "clusterSize": 25, "icc": 0.05},
   {"study": "Cluster B", "yi": 0.28, "vi": 0.06, "clusterSize": 30, "icc": 0.03},
@@ -27600,15 +27626,15 @@ function showClusterRCTMA() {
         <h4 style="margin-top: 16px;">Design Effect Calculator</h4>
         <div style="display: flex; gap: 16px; margin-bottom: 16px;">
           <div class="input-group" style="flex: 1;">
-            <label>Cluster Size (m):</label>
+            <label for="deClusterSize">Cluster Size (m):</label>
             <input type="number" id="deClusterSize" value="20" min="2" style="padding: 10px; width: 100%;">
           </div>
           <div class="input-group" style="flex: 1;">
-            <label>ICC (ρ):</label>
+            <label for="deICC">ICC (ρ):</label>
             <input type="number" id="deICC" value="0.05" min="0" max="1" step="0.01" style="padding: 10px; width: 100%;">
           </div>
           <div class="input-group" style="flex: 1;">
-            <label>Design Effect:</label>
+            <label for="deResult">Design Effect:</label>
             <input type="text" id="deResult" readonly style="padding: 10px; width: 100%; background: var(--bg-surface);">
           </div>
         </div>
@@ -27802,7 +27828,9 @@ function showConceptMap() {
     <p style="color: var(--text-secondary); margin-bottom: 12px;">
       Enter key concepts (one per line) to create a visual map.
     </p>
-    <textarea id="conceptsInput" rows="6" style="width: 100%; padding: 10px;" placeholder="Concept 1
+    <textarea id="conceptsInput" rows="6" style="width: 100%; padding: 10px;" aria-label="Concept 1
+Concept 2
+Concept 3" placeholder="Concept 1
 Concept 2
 Concept 3"></textarea>
     <button onclick="renderConceptMap()" style="margin-top: 12px;">Generate Map</button>
@@ -27955,7 +27983,7 @@ function showPRISMAScR() {
             <td>${item.section}</td>
             <td>${item.item}</td>
             <td><input type="checkbox" onchange="updatePRISMAProgress()"></td>
-            <td><input type="text" style="width: 60px; padding: 4px;" placeholder="#"></td>
+            <td><input type="text" style="width: 60px; padding: 4px;" aria-label="#" placeholder="#"></td>
           </tr>
         `).join('')}
       </tbody>
@@ -28439,7 +28467,7 @@ function showEffectSizeConverter() {
           <div>
             <h4>Input</h4>
             <div class="input-group">
-              <label>Effect Size Type:</label>
+              <label for="esFromType">Effect Size Type:</label>
               <select id="esFromType" style="width: 100%; padding: 10px;" onchange="updateESConverterUI()">
                 <option value="d">Cohen's d (SMD)</option>
                 <option value="g">Hedges' g</option>
@@ -28451,12 +28479,12 @@ function showEffectSizeConverter() {
               </select>
             </div>
             <div class="input-group">
-              <label>Value:</label>
-              <input type="number" id="esInputValue" step="0.001" style="width: 100%; padding: 10px;" placeholder="e.g., 0.5">
+              <label for="esInputValue">Value:</label>
+              <input type="number" id="esInputValue" step="0.001" style="width: 100%; padding: 10px;" aria-label="e.g., 0.5" placeholder="e.g., 0.5">
             </div>
             <div class="input-group">
-              <label>Standard Error (optional):</label>
-              <input type="number" id="esInputSE" step="0.001" style="width: 100%; padding: 10px;" placeholder="e.g., 0.15">
+              <label for="esInputSE">Standard Error (optional):</label>
+              <input type="number" id="esInputSE" step="0.001" style="width: 100%; padding: 10px;" aria-label="e.g., 0.15" placeholder="e.g., 0.15">
             </div>
             <div id="esExtraInputs"></div>
           </div>
@@ -28464,7 +28492,7 @@ function showEffectSizeConverter() {
           <div>
             <h4>Output</h4>
             <div class="input-group">
-              <label>Convert To:</label>
+              <label for="esToType">Convert To:</label>
               <select id="esToType" style="width: 100%; padding: 10px;">
                 <option value="or">Odds Ratio</option>
                 <option value="d">Cohen's d (SMD)</option>
@@ -28519,19 +28547,19 @@ function updateESConverterUI() {
   if (fromType === 'd' || fromType === 'g') {
     extraDiv.innerHTML = `
       <div class="input-group">
-        <label>Sample Size Group 1 (n₁):</label>
-        <input type="number" id="esN1" style="width: 100%; padding: 10px;" placeholder="e.g., 50">
+        <label for="esN1">Sample Size Group 1 (n₁):</label>
+        <input type="number" id="esN1" style="width: 100%; padding: 10px;" aria-label="e.g., 50" placeholder="e.g., 50">
       </div>
       <div class="input-group">
-        <label>Sample Size Group 2 (n₂):</label>
-        <input type="number" id="esN2" style="width: 100%; padding: 10px;" placeholder="e.g., 50">
+        <label for="esN2">Sample Size Group 2 (n₂):</label>
+        <input type="number" id="esN2" style="width: 100%; padding: 10px;" aria-label="e.g., 50" placeholder="e.g., 50">
       </div>
     `;
   } else if (fromType === 'or' || fromType === 'rr') {
     extraDiv.innerHTML = `
       <div class="input-group">
-        <label>Baseline Risk (p₀) for RR conversion:</label>
-        <input type="number" id="esP0" step="0.01" min="0" max="1" style="width: 100%; padding: 10px;" placeholder="e.g., 0.2">
+        <label for="esP0">Baseline Risk (p₀) for RR conversion:</label>
+        <input type="number" id="esP0" step="0.01" min="0" max="1" style="width: 100%; padding: 10px;" aria-label="e.g., 0.2" placeholder="e.g., 0.2">
       </div>
     `;
   } else {
@@ -28752,27 +28780,27 @@ function showStatisticalEstimators() {
             <h4 style="margin-top: 0;">Median/IQR → Mean/SD</h4>
             <p style="font-size: 0.85rem; color: var(--text-secondary);">Luo et al. (2018) method</p>
             <div class="input-group">
-              <label>Median:</label>
+              <label for="estMedian">Median:</label>
               <input type="number" id="estMedian" step="0.01" style="width: 100%; padding: 8px;">
             </div>
             <div class="input-group">
-              <label>Q1 (25th percentile):</label>
+              <label for="estQ1">Q1 (25th percentile):</label>
               <input type="number" id="estQ1" step="0.01" style="width: 100%; padding: 8px;">
             </div>
             <div class="input-group">
-              <label>Q3 (75th percentile):</label>
+              <label for="estQ3">Q3 (75th percentile):</label>
               <input type="number" id="estQ3" step="0.01" style="width: 100%; padding: 8px;">
             </div>
             <div class="input-group">
-              <label>Min (optional):</label>
+              <label for="estMin">Min (optional):</label>
               <input type="number" id="estMin" step="0.01" style="width: 100%; padding: 8px;">
             </div>
             <div class="input-group">
-              <label>Max (optional):</label>
+              <label for="estMax">Max (optional):</label>
               <input type="number" id="estMax" step="0.01" style="width: 100%; padding: 8px;">
             </div>
             <div class="input-group">
-              <label>Sample Size (n):</label>
+              <label for="estN">Sample Size (n):</label>
               <input type="number" id="estN" style="width: 100%; padding: 8px;">
             </div>
             <button onclick="estimateMeanSD()" style="margin-top: 8px;">Estimate Mean & SD</button>
@@ -28784,7 +28812,7 @@ function showStatisticalEstimators() {
             <h4 style="margin-top: 0;">t/F-statistic → Cohen's d</h4>
             <p style="font-size: 0.85rem; color: var(--text-secondary);">For 2-group comparisons</p>
             <div class="input-group">
-              <label>Statistic Type:</label>
+              <label for="statType">Statistic Type:</label>
               <select id="statType" style="width: 100%; padding: 8px;">
                 <option value="t">t-statistic</option>
                 <option value="f">F-statistic</option>
@@ -28792,19 +28820,19 @@ function showStatisticalEstimators() {
               </select>
             </div>
             <div class="input-group">
-              <label>Value:</label>
+              <label for="statValue">Value:</label>
               <input type="number" id="statValue" step="0.001" style="width: 100%; padding: 8px;">
             </div>
             <div class="input-group">
-              <label>n₁ (Group 1):</label>
+              <label for="statN1">n₁ (Group 1):</label>
               <input type="number" id="statN1" style="width: 100%; padding: 8px;">
             </div>
             <div class="input-group">
-              <label>n₂ (Group 2):</label>
+              <label for="statN2">n₂ (Group 2):</label>
               <input type="number" id="statN2" style="width: 100%; padding: 8px;">
             </div>
             <div class="input-group" id="directionGroup" style="display: none;">
-              <label>Effect Direction:</label>
+              <label for="statDirection">Effect Direction:</label>
               <select id="statDirection" style="width: 100%; padding: 8px;">
                 <option value="1">Positive (Group 1 > Group 2)</option>
                 <option value="-1">Negative (Group 1 < Group 2)</option>
@@ -28953,19 +28981,19 @@ function showPowerCalculator() {
       </div>
       <div class="modal-body">
         <div class="input-group">
-          <label>Expected Effect Size (d or log(OR)):</label>
+          <label for="powerEffect">Expected Effect Size (d or log(OR)):</label>
           <input type="number" id="powerEffect" step="0.01" value="0.3" style="width: 100%; padding: 10px;">
         </div>
         <div class="input-group">
-          <label>Standard Error of Pooled Effect:</label>
+          <label for="powerSE">Standard Error of Pooled Effect:</label>
           <input type="number" id="powerSE" step="0.01" value="0.1" style="width: 100%; padding: 10px;">
         </div>
         <div class="input-group">
-          <label>Alpha (significance level):</label>
+          <label for="powerAlpha">Alpha (significance level):</label>
           <input type="number" id="powerAlpha" step="0.01" value="0.05" style="width: 100%; padding: 10px;">
         </div>
         <div class="input-group">
-          <label>Desired Power (for sample size calculation):</label>
+          <label for="desiredPower">Desired Power (for sample size calculation):</label>
           <input type="number" id="desiredPower" step="0.05" value="0.8" min="0.5" max="0.99" style="width: 100%; padding: 10px;">
         </div>
 
@@ -29198,13 +29226,13 @@ function showFragilityIndex() {
           </tr>
           <tr>
             <td><strong>Treatment</strong></td>
-            <td><input type="number" id="fiA" style="width: 80px; padding: 8px;" placeholder="a"></td>
-            <td><input type="number" id="fiB" style="width: 80px; padding: 8px;" placeholder="b"></td>
+            <td><input type="number" id="fiA" style="width: 80px; padding: 8px;" aria-label="a" placeholder="a"></td>
+            <td><input type="number" id="fiB" style="width: 80px; padding: 8px;" aria-label="b" placeholder="b"></td>
           </tr>
           <tr>
             <td><strong>Control</strong></td>
-            <td><input type="number" id="fiC" style="width: 80px; padding: 8px;" placeholder="c"></td>
-            <td><input type="number" id="fiD" style="width: 80px; padding: 8px;" placeholder="d"></td>
+            <td><input type="number" id="fiC" style="width: 80px; padding: 8px;" aria-label="c" placeholder="c"></td>
+            <td><input type="number" id="fiD" style="width: 80px; padding: 8px;" aria-label="d" placeholder="d"></td>
           </tr>
         </table>
 
@@ -29601,25 +29629,25 @@ function showKMDigitizer() {
         <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
           <div>
             <div class="input-group">
-              <label>Upload KM Curve Image:</label>
+              <label for="kmImageUpload">Upload KM Curve Image:</label>
               <input type="file" id="kmImageUpload" accept="image/*" onchange="loadKMImage()" style="padding: 8px;">
             </div>
 
             <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px;">
               <div class="input-group">
-                <label>X Min:</label>
+                <label for="kmXMin">X Min:</label>
                 <input type="number" id="kmXMin" value="0" style="width: 100%; padding: 6px;" onchange="updateKMScale()">
               </div>
               <div class="input-group">
-                <label>X Max:</label>
+                <label for="kmXMax">X Max:</label>
                 <input type="number" id="kmXMax" value="12" style="width: 100%; padding: 6px;" onchange="updateKMScale()">
               </div>
               <div class="input-group">
-                <label>Y Min:</label>
+                <label for="kmYMin">Y Min:</label>
                 <input type="number" id="kmYMin" value="0" step="0.1" style="width: 100%; padding: 6px;" onchange="updateKMScale()">
               </div>
               <div class="input-group">
-                <label>Y Max:</label>
+                <label for="kmYMax">Y Max:</label>
                 <input type="number" id="kmYMax" value="1" step="0.1" style="width: 100%; padding: 6px;" onchange="updateKMScale()">
               </div>
             </div>
@@ -29642,8 +29670,11 @@ function showKMDigitizer() {
             </div>
 
             <h4 style="margin-top: 16px;">At-Risk Numbers (Optional)</h4>
-            <textarea id="kmAtRisk" rows="4" style="width: 100%; padding: 8px; font-family: monospace;"
-                      placeholder="Time,Treatment,Control
+            <textarea  aria-label="At-Risk Numbers (Optional)" id="kmAtRisk" rows="4" style="width: 100%; padding: 8px; font-family: monospace;"
+                      aria-label="Time,Treatment,Control
+0,100,100
+6,80,75
+12,50,40" placeholder="Time,Treatment,Control
 0,100,100
 6,80,75
 12,50,40"></textarea>
@@ -30045,7 +30076,7 @@ function showComponentNMA() {
         </p>
 
         <div class="input-group">
-          <label>Component NMA Data (JSON):</label>
+          <label for="cNMAData">Component NMA Data (JSON):</label>
           <textarea id="cNMAData" rows="12" style="width: 100%; font-family: monospace; padding: 10px;" placeholder='[
   {"study": "S1", "t1": "A+B", "t2": "A", "effect": 0.3, "se": 0.15, "components1": ["A", "B"], "components2": ["A"]},
   {"study": "S2", "t1": "A+C", "t2": "A", "effect": 0.5, "se": 0.18, "components1": ["A", "C"], "components2": ["A"]},
@@ -30054,7 +30085,7 @@ function showComponentNMA() {
         </div>
 
         <div class="input-group">
-          <label>Components (comma-separated):</label>
+          <label for="cNMAComponents">Components (comma-separated):</label>
           <input type="text" id="cNMAComponents" value="A, B, C" style="width: 100%; padding: 10px;">
         </div>
 
@@ -30338,8 +30369,8 @@ function showCollaboration() {
 
         <div id="collabJoin" style="display: none;">
           <div class="input-group">
-            <label>Enter Room ID:</label>
-            <input type="text" id="roomIdInput" placeholder="room-xxxxxx" style="width: 100%; padding: 10px;">
+            <label for="roomIdInput">Enter Room ID:</label>
+            <input type="text" id="roomIdInput" aria-label="room-xxxxxx" placeholder="room-xxxxxx" style="width: 100%; padding: 10px;">
           </div>
           <button class="primary" onclick="joinCollabSession()" style="color: white; width: 100%; margin-top: 12px;">
             Join Session
@@ -31210,7 +31241,7 @@ function showHighDPIExport() {
         </p>
 
         <div class="input-group">
-          <label>Figure to Export:</label>
+          <label for="figureToExport">Figure to Export:</label>
           <select id="figureToExport" style="width: 100%; padding: 10px;">
             <option value="forest">Forest Plot</option>
             <option value="funnel">Funnel Plot</option>
@@ -31222,7 +31253,7 @@ function showHighDPIExport() {
         </div>
 
         <div class="input-group">
-          <label>Format:</label>
+          <label for="exportFormatHD">Format:</label>
           <select id="exportFormatHD" style="width: 100%; padding: 10px;">
             <option value="png-300">PNG 300 DPI (Standard Print)</option>
             <option value="png-600">PNG 600 DPI (High Quality)</option>
@@ -31234,7 +31265,7 @@ function showHighDPIExport() {
         </div>
 
         <div class="input-group">
-          <label>Filename Prefix:</label>
+          <label for="filenamePrefix">Filename Prefix:</label>
           <input type="text" id="filenamePrefix" value="figure" style="width: 100%; padding: 10px;">
         </div>
 
@@ -31389,7 +31420,7 @@ function showCitationChainer() {
         </p>
 
         <div class="input-group">
-          <label>Select Study from Project:</label>
+          <label for="chainerStudySelect">Select Study from Project:</label>
           <select id="chainerStudySelect" style="width: 100%; padding: 10px;" onchange="updateChainerDOI()">
             <option value="">-- Select a record --</option>
             ${records.filter(r => r.finalDecision === 'include' || r.screener1Decision === 'include').map(r => `
@@ -31399,8 +31430,8 @@ function showCitationChainer() {
         </div>
 
         <div class="input-group">
-          <label>Target DOI:</label>
-          <input type="text" id="chainerDOI" placeholder="e.g. 10.1001/jama.2023.1234" style="width: 100%; padding: 10px;">
+          <label for="chainerDOI">Target DOI:</label>
+          <input type="text" id="chainerDOI" aria-label="e.g. 10.1001/jama.2023.1234" placeholder="e.g. 10.1001/jama.2023.1234" style="width: 100%; padding: 10px;">
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
@@ -31611,9 +31642,9 @@ function showPDFTableExtractor() {
         </p>
 
         <div class="input-group">
-          <label>Paste Table Data:</label>
+          <label for="pdfTableInput">Paste Table Data:</label>
           <textarea id="pdfTableInput" rows="10" style="width: 100%; font-family: monospace; padding: 10px;"
-                    placeholder="Paste table from PDF here...&#10;&#10;Study    Effect (95% CI)    N&#10;Smith 2020    0.75 (0.45-1.12)    150&#10;Jones 2021    1.23 (0.89-1.70)    200"></textarea>
+                    aria-label="Paste table from PDF here...&#10;&#10;Study    Effect (95% CI)    N&#10;Smith 2020    0.75 (0.45-1.12)    150&#10;Jones 2021    1.23 (0.89-1.70)    200" placeholder="Paste table from PDF here...&#10;&#10;Study    Effect (95% CI)    N&#10;Smith 2020    0.75 (0.45-1.12)    150&#10;Jones 2021    1.23 (0.89-1.70)    200"></textarea>
         </div>
 
         <button onclick="parsePDFTable()" style="margin-bottom: 16px;">Parse Table</button>
@@ -31682,7 +31713,7 @@ function parsePDFTable() {
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
       ${result.header.map(h => `
         <div style="display: flex; gap: 8px; align-items: center;">
-          <label style="min-width: 100px;">${h}:</label>
+          <label style="min-width: 100px;" for="map_${h.replace(/\s/g, '_')}">${h}:</label>
           <select id="map_${h.replace(/\s/g, '_')}" style="flex: 1; padding: 6px;">
             <option value="ignore">Ignore</option>
             <option value="study" ${types[h] === 'study' ? 'selected' : ''}>Study ID</option>
@@ -31852,7 +31883,7 @@ function showDataEntryValidator() {
         </p>
 
         <div class="input-group">
-          <label>Data Source:</label>
+          <label for="validationSource">Data Source:</label>
           <select id="validationSource" style="width: 100%; padding: 10px;">
             <option value="extracted">Extracted Data (${state.extractedData?.length || 0} rows)</option>
             <option value="paste">Paste JSON Data</option>
@@ -31861,7 +31892,7 @@ function showDataEntryValidator() {
 
         <div id="pasteDataSection" style="display: none;">
           <div class="input-group">
-            <label>Paste Data (JSON array):</label>
+            <label for="validationData">Paste Data (JSON array):</label>
             <textarea id="validationData" rows="8" style="width: 100%; font-family: monospace; padding: 10px;"
                       placeholder='[{"study": "Smith 2020", "effect": 0.5, "se": 0.15}, ...]'></textarea>
           </div>
@@ -31992,7 +32023,7 @@ function showPDFTextExtractor() {
         </p>
 
         <div class="input-group">
-          <label>Select PDF File:</label>
+          <label for="pdfTextInput">Select PDF File:</label>
           <input type="file" id="pdfTextInput" accept="application/pdf" style="padding: 10px;">
         </div>
 
@@ -32013,7 +32044,7 @@ function showPDFTextExtractor() {
             <button class="small" onclick="copyExtractedText()">Copy to Clipboard</button>
           </div>
           <div class="input-group">
-            <input type="text" id="pdfTextSearch" placeholder="Search in extracted text..." 
+            <input type="text" id="pdfTextSearch" aria-label="Search in extracted text..." placeholder="Search in extracted text..." 
                    oninput="searchPDFText()" style="width: 100%; padding: 8px; margin-bottom: 8px;">
           </div>
           <textarea id="pdfTextOutput" rows="15" style="width: 100%; font-family: monospace; padding: 10px; font-size: 0.85rem;" readonly></textarea>
@@ -32324,7 +32355,7 @@ function showBayesianNMA() {
         </p>
 
         <div class="input-group">
-          <label>NMA Data (JSON):</label>
+          <label for="bayesNMAData">NMA Data (JSON):</label>
           <textarea id="bayesNMAData" rows="8" style="width: 100%; font-family: monospace; padding: 10px;" placeholder='[
   {"study": "Study1", "t1": "A", "t2": "B", "effect": 0.5, "se": 0.15},
   {"study": "Study2", "t1": "A", "t2": "C", "effect": 0.3, "se": 0.18},
@@ -32334,15 +32365,15 @@ function showBayesianNMA() {
 
         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
           <div class="input-group">
-            <label>Iterations:</label>
+            <label for="bayesIterations">Iterations:</label>
             <input type="number" id="bayesIterations" value="5000" style="width: 100%; padding: 8px;">
           </div>
           <div class="input-group">
-            <label>Burn-in:</label>
+            <label for="bayesBurnin">Burn-in:</label>
             <input type="number" id="bayesBurnin" value="1000" style="width: 100%; padding: 8px;">
           </div>
           <div class="input-group">
-            <label>Chains:</label>
+            <label for="bayesChains">Chains:</label>
             <input type="number" id="bayesChains" value="4" style="width: 100%; padding: 8px;">
           </div>
         </div>
@@ -32520,13 +32551,13 @@ function showThresholdNMA() {
         </p>
 
         <div class="input-group">
-          <label>Decision Threshold:</label>
+          <label for="thresholdValue">Decision Threshold:</label>
           <input type="number" id="thresholdValue" value="0" step="0.01" style="width: 100%; padding: 10px;">
           <small style="color: var(--text-secondary);">e.g., 0 for no effect, 0.5 for clinically meaningful difference</small>
         </div>
 
         <div class="input-group">
-          <label>NMA Data (JSON):</label>
+          <label for="thresholdNMAData">NMA Data (JSON):</label>
           <textarea id="thresholdNMAData" rows="8" style="width: 100%; font-family: monospace; padding: 10px;" placeholder='[
   {"study": "Study1", "t1": "A", "t2": "B", "effect": 0.5, "se": 0.15},
   {"study": "Study2", "t1": "A", "t2": "C", "effect": 0.3, "se": 0.18}
@@ -32802,7 +32833,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="modal-overlay" id="commandPalette" role="dialog" aria-modal="true" aria-label="Command palette">
   <div class="modal">
     <div class="cmd-input-wrap">
-      <input type="text" id="cmdInput" placeholder="Type a command..." role="combobox" aria-expanded="false" aria-controls="cmdResults" aria-autocomplete="list" autocomplete="off">
+      <input type="text" id="cmdInput" aria-label="Type a command..." placeholder="Type a command..." role="combobox" aria-expanded="false" aria-controls="cmdResults" aria-autocomplete="list" autocomplete="off">
     </div>
     <div id="cmdResults" role="listbox"></div>
   </div>
