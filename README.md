@@ -1,6 +1,6 @@
-# Screenr v10.4 - World-Class Systematic Review Platform
+# Screenr v10.4 — Systematic Review Platform
 
-A comprehensive, offline-first web application for systematic review screening, data extraction, risk of bias assessment, and meta-analysis. Designed as a complete Rayyan/Covidence alternative.
+An offline-first web application for systematic review screening, data extraction, risk-of-bias assessment, and meta-analysis. Targets the same workflow surface as Rayyan / Covidence but ships as a single HTML file with no server or account requirement.
 
 ## Features
 
@@ -334,6 +334,32 @@ rayyanreplacement/
 
 ### CINeMA Framework
 38. Nikolakopoulou, A., et al. (2020). CINeMA: An approach for assessing confidence in the results of a network meta-analysis. *PLOS Medicine*, 17:e1003082.
+
+## Methods
+
+The single-page app `screenr.html` runs entirely client-side and stores state in browser `localStorage`. Numerically-relevant features:
+
+- **Effect-size pooling.** Inverse-variance weighting with DerSimonian–Laird and REML τ² estimators; HKSJ adjustment available with the `max(1, Q/(k−1))` variance floor; I² with test-based 95% CI; prediction interval on `t_{k-1} × √(τ² + SE²)` per Cochrane Handbook v6.5 §10.10.4.3.
+- **Publication-bias diagnostics.** Egger's, Begg's, Trim-and-Fill (sensitivity only), and Vevea–Hedges selection models; P-Curve evidential-value analysis (Simonsohn 2014).
+- **Network meta-analysis.** Contrast-based pooling with league table, SUCRA and P-score ranking, global inconsistency by node-splitting, and the CINeMA 6-domain confidence framework (Nikolakopoulou et al. 2020).
+- **DTA.** Bivariate Reitsma model and HSROC (Rutter–Gatsonis) for diagnostic accuracy; SROC curves.
+- **Screening efficiency.** SAFE procedure stopping rules (Boetje & van de Schoot 2024) with hypergeometric 95%-recall test; TF-IDF + Logistic-Regression active learning for record prioritisation.
+- **Inter-rater reliability.** Cohen's κ with 95% CI and PABAK; Landis–Koch interpretation bands.
+
+Validation evidence: `run_validation.py` runs reference-dataset checks; `selenium_smoke_test.py` boots the page in headless Chrome and exercises the import-screen-extract-analyse flow.
+
+## Limitations
+
+- **No automated unit-test layer in this repo.** `pytest` collects no tests (no `tests/` directory); validation is the Selenium harness only. Anyone modifying `screenr.html` needs Chrome + selenium installed to verify the change.
+- **Browser-only execution.** All pooling runs in the analyst's browser; large IPD-scale corpora hit memory limits before they hit numerical limits.
+- **No Bayesian backend.** No Stan / MCMC path. Bayesian posteriors and hierarchical priors are not supported; for those, drive an R / Stan pipeline downstream.
+- **GRADE certainty is partially automated.** GRADE prompts are templated and an "automated assessment with statistical reasoning" path exists, but the final certainty grade is the analyst's responsibility.
+- **CINeMA confidence is a workflow, not a verdict.** The 6-domain framework is presented for the user to fill in; the app does not auto-rate confidence.
+- **Active-learning model is light.** TF-IDF + Logistic Regression is a deliberate choice for in-browser tractability; for very large corpora (n > 10k records) a server-side BERT-class model will out-perform it.
+
+## Conclusions
+
+Use Screenr when (a) the analyst wants the full Rayyan/Covidence workflow surface without an account, server, or upload of confidential records, (b) the meta-analysis methods listed under Methods cover the planned outputs, and (c) Chrome + selenium are acceptable for release-time verification. For Bayesian inference, distributed multi-reviewer screening at institutional scale, or BERT-grade active learning, hand off after screening to a specialised pipeline.
 
 ## License
 
