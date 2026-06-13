@@ -4,9 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0ea5a4">
-  <link rel="apple-touch-icon" href="https://via.placeholder.com/192">
-  <link rel="manifest" href='data:application/json,{"name":"Screenr","short_name":"Screenr","start_url":".","display":"standalone","background_color":"#fbf8f2","theme_color":"#0ea5a4","icons":[{"src":"https://via.placeholder.com/192","sizes":"192x192","type":"image/png"}]}'>
-  <title>Screenr v11.0.0 - World-Class Systematic Review Platform</title>
+  <link rel="manifest" href='data:application/json,{"name":"Screenr","short_name":"Screenr","start_url":".","display":"standalone","background_color":"%23fbf8f2","theme_color":"%230ea5a4"}'>
+  <title>Screenr v11.0.0 - Systematic Review Platform</title>
   <script>
     // PWA Support - Service Worker Registration
     if ('serviceWorker' in navigator) {
@@ -15988,11 +15987,11 @@ function showMultipleMetaRegression() {
         <div class="card" style="padding: 16px; margin-bottom: 20px;">
           <h4 style="margin: 0 0 12px 0;">Select Covariates (minimum 1, maximum 5)</h4>
           <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
-            <label><input type="checkbox" id="mmr_year" ${covariateCounts.year aria-label="= 3 ? '' : 'disabled'}> Year (n=${covariateCounts.year})" >= 3 ? '' : 'disabled'}> Year (n=${covariateCounts.year})</label>
-            <label><input type="checkbox" id="mmr_sampleSize" ${covariateCounts.sampleSize aria-label="= 3 ? '' : 'disabled'}> Sample Size (n=${covariateCounts.sampleSize})" >= 3 ? '' : 'disabled'}> Sample Size (n=${covariateCounts.sampleSize})</label>
-            <label><input type="checkbox" id="mmr_meanAge" ${covariateCounts.meanAge aria-label="= 3 ? '' : 'disabled'}> Mean Age (n=${covariateCounts.meanAge})" >= 3 ? '' : 'disabled'}> Mean Age (n=${covariateCounts.meanAge})</label>
-            <label><input type="checkbox" id="mmr_percentFemale" ${covariateCounts.percentFemale aria-label="= 3 ? '' : 'disabled'}> % Female (n=${covariateCounts.percentFemale})" >= 3 ? '' : 'disabled'}> % Female (n=${covariateCounts.percentFemale})</label>
-            <label><input type="checkbox" id="mmr_followUp" ${covariateCounts.followUpMonths aria-label="= 3 ? '' : 'disabled'}> Follow-up Months (n=${covariateCounts.followUpMonths})" >= 3 ? '' : 'disabled'}> Follow-up Months (n=${covariateCounts.followUpMonths})</label>
+            <label><input type="checkbox" id="mmr_year" ${covariateCounts.year >= 3 ? '' : 'disabled'}> Year (n=${covariateCounts.year})</label>
+            <label><input type="checkbox" id="mmr_sampleSize" ${covariateCounts.sampleSize >= 3 ? '' : 'disabled'}> Sample Size (n=${covariateCounts.sampleSize})</label>
+            <label><input type="checkbox" id="mmr_meanAge" ${covariateCounts.meanAge >= 3 ? '' : 'disabled'}> Mean Age (n=${covariateCounts.meanAge})</label>
+            <label><input type="checkbox" id="mmr_percentFemale" ${covariateCounts.percentFemale >= 3 ? '' : 'disabled'}> % Female (n=${covariateCounts.percentFemale})</label>
+            <label><input type="checkbox" id="mmr_followUp" ${covariateCounts.followUpMonths >= 3 ? '' : 'disabled'}> Follow-up Months (n=${covariateCounts.followUpMonths})</label>
           </div>
           <button onclick="runMultipleMetaReg()" style="margin-top: 16px;">Run Analysis</button>
         </div>
@@ -31080,7 +31079,7 @@ document.addEventListener('keydown', (e) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const hasSeenWizard = localStorage.getItem('screenr_wizard_seen');
-  if (!hasSeenWizard && records.length === 0) {
+  if (!hasSeenWizard && (typeof records === 'undefined' || records.length === 0)) {
     setTimeout(showQuickStartWizard, 500);
   }
 });
@@ -31148,7 +31147,7 @@ function showAbout() {
         <div style="font-size: 4rem; margin-bottom: 16px;">📊</div>
         <h2 style="margin: 0 0 8px 0;">Screenr v11.0.0</h2>
         <p style="color: var(--text-secondary); margin-bottom: 24px;">
-          World-Class Systematic Review Platform
+          Systematic Review Platform
         </p>
 
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px;">

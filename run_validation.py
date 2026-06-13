@@ -2,6 +2,18 @@ import os
 import glob
 import json
 import time
+import sys
+import io
+
+
+def _force_utf8_stdout():
+    # Windows consoles default to cp1252, which cannot encode statistics symbols
+    # (e.g. tau) that appear in test names. Force UTF-8 so printing results never crashes.
+    # Done inside a function (not at import) so it never perturbs pytest stdout capture.
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -105,4 +117,5 @@ def main():
         driver.quit()
 
 if __name__ == "__main__":
+    _force_utf8_stdout()
     main()
