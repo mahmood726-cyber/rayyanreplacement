@@ -33,3 +33,10 @@ PROGRESS.md
 # Local agent config
 .claude/
 CLAUDE.local.md
+
+# Sentinel scan output (see rules.md — WARN/BLOCK findings)
+sentinel-findings.md
+sentinel-findings.jsonl
+
+# Developer scratch files
+grep_results.txt

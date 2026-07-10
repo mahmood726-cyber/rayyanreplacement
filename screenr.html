@@ -3764,7 +3764,7 @@ The auto-extractor will search for:
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="vendor/pdf.min.js"></script>
 
 <script id="statLogicCode" type="text/plain">
 
@@ -10187,7 +10187,7 @@ async function loadPDF(event) {
       showToast('PDF.js library not loaded. Check your connection.', 'error');
       return;
     }
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'vendor/pdf.worker.min.js';
 
     pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
     document.getElementById('pageCount').textContent = pdfDoc.numPages;
@@ -17933,6 +17933,7 @@ const ExtendedValidationSuite = {
     results.push(this.testClusterDesignEffect());
     results.push(this.testClusterEffectiveSampleSize());
     results.push(this.testProportionFreemanTukey());
+    results.push(this.testProportionInputValidation());
     results.push(this.testSurvivalHRPooling());
     results.push(this.testIPDOneStage());
     results.push(this.testNeuralNetInit());
@@ -18576,6 +18577,27 @@ const ExtendedValidationSuite = {
     return { name: 'Proportion MA (Freeman-Tukey)', passed,
              expected: { p: 'in [0.05, 0.20]' },
              actual: { p: result.pooledProportion.toFixed(4) } };
+  },
+
+  // Regression: runProportionMA must drop rows where events>total (or total<=0)
+  // before pooling. Unguarded, events>total yields x/(n+1)>1 -> Math.asin(NaN)
+  // -> a silent "NaN%" pooled proportion. See validProportionStudies().
+  testProportionInputValidation() {
+    const raw = [
+      { events: 10, total: 5, study: 'S1' },  // invalid: events > total
+      { events: 3, total: 8, study: 'S2' },
+      { events: 4, total: 9, study: 'S3' }
+    ];
+    const valid = validProportionStudies(raw);
+    const filteredInvalid = valid.length === 2 && !valid.some(s => s.events > s.total);
+    // Confirm the unguarded path would have produced a non-finite proportion.
+    const unguarded = ProportionMetaAnalysis.freemanTukey(raw, 'REML');
+    const unguardedWasNaN = !Number.isFinite(unguarded.pooledProportion);
+    const passed = filteredInvalid && unguardedWasNaN;
+
+    return { name: 'Proportion MA input validation (events<=total)', passed,
+             expected: { validCount: 2, unguardedNaN: true },
+             actual: { validCount: valid.length, unguardedNaN: unguardedWasNaN } };
   },
 
   testSurvivalHRPooling() {
@@ -27023,17 +27045,33 @@ function closePropModal() {
   if (modal) modal.remove();
 }
 
+// Keep only studies with a valid events/total pair: total>0 and 0<=events<=total.
+// Without this guard, events>total feeds x/(n+1)>1 into Math.asin() -> NaN, and the
+// pooled proportion silently renders as "NaN%" (regression: testProportionInputValidation).
+function validProportionStudies(studies) {
+  return studies.filter(s =>
+    Number.isFinite(s.events) && Number.isFinite(s.total) &&
+    s.total > 0 && s.events >= 0 && s.events <= s.total);
+}
+
 function runProportionMA() {
   const text = document.getElementById('propData').value.trim();
   const method = document.getElementById('propMethod').value;
 
-  const studies = text.split('\n').map((line, i) => {
+  const parsed = text.split('\n').map((line, i) => {
     const [events, total] = line.split(',').map(s => parseInt(s.trim()));
     return { events, total, study: `Study ${i + 1}` };
   }).filter(s => !isNaN(s.events) && !isNaN(s.total));
 
+  const studies = validProportionStudies(parsed);
+
+  if (studies.length < parsed.length) {
+    showToast('Skipped ' + (parsed.length - studies.length) +
+      ' invalid row(s): each needs total>0 and 0 <= events <= total', 'warning');
+  }
+
   if (studies.length < 2) {
-    showToast('Need at least 2 studies', 'warning');
+    showToast('Need at least 2 valid studies (events between 0 and total)', 'warning');
     return;
   }
 

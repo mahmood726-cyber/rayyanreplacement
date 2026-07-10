@@ -1,6 +1,6 @@
 # Screenr v10.4 — Systematic Review Platform
 
-An offline-first web application for systematic review screening, data extraction, risk-of-bias assessment, and meta-analysis. Targets the same workflow surface as Rayyan / Covidence but ships as a single HTML file with no server or account requirement.
+An offline-first web application for systematic review screening, data extraction, risk-of-bias assessment, and meta-analysis. Targets the same workflow surface as Rayyan / Covidence but ships as a single HTML file (`screenr.html`) with a small vendored `vendor/` folder for the optional full-text PDF viewer, and needs no server or account. All assets are local — the app makes no external CDN or network calls at runtime.
 
 ## Features
 
@@ -337,7 +337,7 @@ rayyanreplacement/
 
 ## Methods
 
-The single-page app `screenr.html` runs entirely client-side and stores state in browser `localStorage`. Numerically-relevant features:
+The single-page app `screenr.html` runs entirely client-side and stores state in browser `localStorage`. The optional full-text PDF viewer uses the [pdf.js](https://mozilla.github.io/pdf.js/) library, which is vendored locally under `vendor/` (`pdf.min.js` + `pdf.worker.min.js`, Apache-2.0) so the app stays fully offline with no external CDN dependency. Numerically-relevant features:
 
 - **Effect-size pooling.** Inverse-variance weighting with DerSimonian–Laird and REML τ² estimators; HKSJ adjustment available with the `max(1, Q/(k−1))` variance floor; I² with test-based 95% CI; prediction interval on `t_{k-1} × √(τ² + SE²)` per Cochrane Handbook v6.5 §10.10.4.3.
 - **Publication-bias diagnostics.** Egger's, Begg's, Trim-and-Fill (sensitivity only), and Vevea–Hedges selection models; P-Curve evidential-value analysis (Simonsohn 2014).
@@ -350,7 +350,7 @@ Validation evidence: `run_validation.py` runs reference-dataset checks; `seleniu
 
 ## Limitations
 
-- **No automated unit-test layer in this repo.** `pytest` collects no tests (no `tests/` directory); validation is the Selenium harness only. Anyone modifying `screenr.html` needs Chrome + selenium installed to verify the change.
+- **No automated unit-test layer in this repo.** `pytest` collects no tests (no `tests/` directory); validation is the Selenium harness only. Anyone modifying `screenr.html` needs Chrome or Edge + selenium installed to verify the change; `pip install -r requirements-dev.txt` pins the validated selenium version.
 - **Browser-only execution.** All pooling runs in the analyst's browser; large IPD-scale corpora hit memory limits before they hit numerical limits.
 - **No Bayesian backend.** No Stan / MCMC path. Bayesian posteriors and hierarchical priors are not supported; for those, drive an R / Stan pipeline downstream.
 - **GRADE certainty is partially automated.** GRADE prompts are templated and an "automated assessment with statistical reasoning" path exists, but the final certainty grade is the analyst's responsibility.

@@ -1,0 +1,7 @@
+# Development / validation dependencies for Screenr.
+# Install with:  pip install -r requirements-dev.txt
+#
+# Reproduces the harness that runs `python run_validation.py` and
+# `python selenium_smoke_test.py`. A matching browser driver (Edge or
+# Chrome) is resolved from ~/.cache/selenium at runtime.
+selenium==4.44.0
