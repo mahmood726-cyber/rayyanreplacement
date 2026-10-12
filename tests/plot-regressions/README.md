@@ -1,0 +1,9 @@
+# Screenr plot restoration — 12 October 2026
+
+Confirmed repairs: missing session/filter/worker state declarations; built-in BCG example now uses the same decisions and extraction maps as imported records; forest display connects existing Egger/Begg routines to result fields; sensitivity reads canonical study decisions/extractions and adapts actual selected-estimator results to the panel schema. Fixed-width SVG coordinate systems now have responsive viewBoxes. The sensitivity panel uses the actual overlay layout instead of being appended invisibly below the app.
+
+Final workflow **38203239462** passed complete desktop (1280px) and mobile-sized (390px) workflows. The retained `plots.mjs` checks 13 example records, actual forest/PRISMA/funnel/leave-one-out plots, both cumulative plots, finite SVG geometry, viewport visibility and responsive navigation. It verifies unchanged records/decisions/extractions/settings during plotting, changed sensitivity input after a canonical exclusion, and no page errors. Previous run 38202259059 passed geometry checks but screenshot review exposed the below-page sensitivity dialog; the final run includes viewport assertions and the repaired overlay.
+
+These are rendering and data-connection regressions, not independent numerical validation of every statistical helper or a full screening-application audit. Core statistical estimator routines were not replaced; sensitivity explicitly uses current main-analysis settings (a one-study cumulative prefix cannot use HKSJ). No user project files were modified in testing. The example loader requests confirmation before replacing a nonempty in-memory session.
+
+Reproduce with the repository served at http://127.0.0.1:8080 and Playwright/Chromium installed. `plots.mjs` uses `@playwright/test` assertions and writes screenshots/results under `artifacts/screenr-plots`. All temporary write-enabled workflows and one-time patch builders were removed after successful validation.
