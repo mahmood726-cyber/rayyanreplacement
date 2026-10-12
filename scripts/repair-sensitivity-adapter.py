@@ -1,10 +1,8 @@
 from pathlib import Path
 p=Path('screenr.html');t=p.read_text()
 a=t.index('function showSensitivityAnalysis() {');b=t.index('  // Perform Influence Analysis',a)
-old=t[a:b]
-start=old.index('  // Perform Leave-One-Out Analysis')
-old=old[:start]+"""  // The shared helpers return bare arrays, while this panel expects labelled
-  // full/omitted/cumulative objects. Refit with the current main-analysis settings.
+old=t[a:b];start=old.index('  // Perform Leave-One-Out Analysis')
+old=old[:start]+"""  // Adapt the panel's labelled result shape using the selected main-analysis settings.
   const fit = rows => calculateMetaAnalysis(rows, {...state.metaSettings,
     useHKSJ: rows.length > 1 && state.metaSettings.useHKSJ});
   const fullMeta = fit(includedStudies);
@@ -22,8 +20,7 @@ old=old[:start]+"""  // The shared helpers return bare arrays, while this panel 
 
 """
 t=t[:a]+old+t[b:]
-# Scale SVG viewports, not just CSS boxes: retain the coordinate system on mobile.
-needle='  const modal = document.getElementById(\'metaModal\');'
+needle="  const modal = document.getElementById('metaModal');\n  modal.classList.add('active');"
 assert t.count(needle)==1
 t=t.replace(needle,"""  document.querySelectorAll('#metaContent svg').forEach(svg => {
     if(!svg.hasAttribute('viewBox')) svg.setAttribute('viewBox',`0 0 ${svg.getAttribute('width')} ${svg.getAttribute('height')}`);
@@ -31,7 +28,8 @@ t=t.replace(needle,"""  document.querySelectorAll('#metaContent svg').forEach(sv
 """+needle,1)
 a=t.index('function showFunnelPlot() {');b=t.index('function closeFunnelModal()',a);old=t[a:b]
 needle="  const svg = document.getElementById('funnelSvg');"
-if needle in old:old=old.replace(needle,needle+"\n  svg.setAttribute('viewBox','0 0 600 400');",1)
+assert old.count(needle)==1
+old=old.replace(needle,needle+"\n  svg.setAttribute('viewBox','0 0 600 400');",1)
 t=t[:a]+old+t[b:]
 needle='  window.sensitivityData = { studies, leaveOneOut, cumulative, influence, subgroup, robSensitivity };'
 assert t.count(needle)==1
