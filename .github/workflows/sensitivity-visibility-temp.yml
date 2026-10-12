@@ -30,13 +30,12 @@ jobs:
    if(name==='sensitivity') {
      await expect(page.locator('#sensitivityModal')).toBeInViewport();
      expect(await page.locator('#sensitivityModal').evaluate(e=>getComputedStyle(e).position)).toBe('fixed');
-     for(const mode of ['cumulative-year','cumulative-effect']) {
-       const selector=`#sensitivityModal button[onclick*=\"'${mode}'\"]`;
-       const button=page.locator(selector);
-       if(await button.count()) {await button.click();await graphic(page,`#sensitivityTab_${mode} svg`);}
-     }
-     await page.locator('#sensitivityModal button[onclick*=\"loo\"]').first().click();
-     await graphic(page,'#sensitivityTab_loo svg');
+     await page.locator('#sensitivityModal button[onclick*=\"cumulative\"]').click();
+     const cumulative=page.locator('#sensitivityTab_cumulative svg');
+     await expect(cumulative).toHaveCount(2);
+     for(let i=0;i<2;i++)await graphic(page,`#sensitivityTab_cumulative svg:nth-of-type(${i+1})`);
+     await page.locator('#sensitivityModal button[onclick*=\"leaveOneOut\"]').click();
+     await graphic(page,'#sensitivityTab_leaveOneOut svg');
    }
    await page.setViewportSize"""
           assert t.count(old)==1;t=t.replace(old,new,1);p.write_text(t)
