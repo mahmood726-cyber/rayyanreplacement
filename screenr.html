@@ -2293,6 +2293,8 @@
       display: none;
     }
   </style>
+
+<style id="screenr-responsive-analysis-plots">.modal-body svg { max-width:100%; height:auto; } .modal { max-width:95vw; }</style>
 </head>
 <body>
 <a href="#recordList" class="skip-link">Skip to main content</a>
@@ -4411,6 +4413,25 @@ document.addEventListener('keydown', (e) => {
 });
 
 // ====== SHARED STATISTICAL LOGIC ======
+// Explicit session state needed by example import, filtering and dependent plots.
+let records = [], decisions = new Map(), extractions = new Map();
+let robAssessments = new Map(), qaAssessments = new Map(), provenancePointers = new Map();
+let auditLogs = [], selectedRecord = null, currentFilter = 'all', currentScreener = 'screener1';
+let recordListScroller = null, recordListVirtual = false, recordListCache = [];
+let recordListItemHeight = 110, recordListLastRange = {start:-1,end:-1}, recordListResizeTimeout = null;
+let extractionFieldOptions = null, extractionFieldLabelMap = null, extractionLabelToKeyMap = null;
+let searchDebounce = null, computeWorker = null, workerCallbacks = new Map(), workerCallId = 0;
+const VIRTUALIZATION_THRESHOLD = 500, VIRTUALIZATION_GAP = 8, VIRTUALIZATION_OVERSCAN = 5;
+const EXTRACTION_ROLES = ['screener1','screener2','adjudicator','final'];
+const STATUS_CLASSES = new Set(['include','exclude','maybe','conflict','duplicate']);
+const PROV_LOW_THRESHOLD = 50, PROV_FULL_THRESHOLD = 100;
+function updateStatusBar() {
+  updateFilterCounts();
+  updateHeaderProgress();
+  const count = document.getElementById('recordCount');
+  if (count) count.textContent = getFilteredRecords().length + ' / ' + records.length + ' records';
+}
+
 const STAT_LOGIC = document.getElementById('statLogicCode').textContent;
 
 const state = {
@@ -11301,6 +11322,8 @@ function showMetaAnalysis() {
 
   // Calculate pooled estimate using inverse-variance method
   const metaResult = calculateMetaAnalysis(includedStudies, state.metaSettings);
+  metaResult.eggerTest = calculateEggersTest(metaResult.transformedEffects, metaResult.ses);
+  metaResult.beggTest = calculateBeggsTest(metaResult.transformedEffects, metaResult.ses);
 
   // Generate forest plot data
   const forestPlot = generateForestPlotHTML(includedStudies, metaResult);
@@ -11486,6 +11509,9 @@ function showMetaAnalysis() {
     </div>
   `;
 
+  document.querySelectorAll('#metaContent svg').forEach(svg => {
+    if(!svg.hasAttribute('viewBox')) svg.setAttribute('viewBox',`0 0 ${svg.getAttribute('width')} ${svg.getAttribute('height')}`);
+  });
   const modal = document.getElementById('metaModal');
   modal.classList.add('active');
   trapFocusInModal(modal.querySelector('.modal'));
@@ -18885,11 +18911,11 @@ function showSensitivityAnalysis() {
   // Get included studies with quantitative data
   const includedStudies = [];
   records.forEach(rec => {
-    if (rec.finalDecision !== 'include') return;
-    const ext = rec.extracted || {};
-    const effect = parseFloat(ext.effect_size);
-    const ciLo = parseFloat(ext.ci_lower);
-    const ciHi = parseFloat(ext.ci_upper);
+    if (getDecisionForRecord(rec.id)?.status !== 'include') return;
+    const ext = getPreferredExtractionData(rec.id) || {};
+    const effect = parseFloat(ext.effect);
+    const ciLo = parseFloat(ext.ci_lo);
+    const ciHi = parseFloat(ext.ci_hi);
     const effectType = (ext.effect_type || 'or').toLowerCase();
 
     if (!Number.isFinite(effect) || !Number.isFinite(ciLo) || !Number.isFinite(ciHi)) return;
@@ -18917,11 +18943,21 @@ function showSensitivityAnalysis() {
     return;
   }
 
-  // Perform Leave-One-Out Analysis
-  const leaveOneOutResults = performLeaveOneOut(includedStudies);
-
-  // Perform Cumulative Meta-Analysis
-  const cumulativeResults = performCumulativeMetaAnalysis(includedStudies);
+  // Adapt the panel's labelled result shape using the selected main-analysis settings.
+  const fit = rows => calculateMetaAnalysis(rows, {...state.metaSettings,
+    useHKSJ: rows.length > 1 && state.metaSettings.useHKSJ});
+  const fullMeta = fit(includedStudies);
+  const leaveOneOutResults = {fullMeta, results: includedStudies.map((study,i) => {
+    const omitted = fit(includedStudies.filter((_,j) => j!==i));
+    return {...omitted, excluded:study,
+      changePct: fullMeta.pooledEffect !== 0 ? 100*(omitted.pooledEffect-fullMeta.pooledEffect)/Math.abs(fullMeta.pooledEffect) : NaN};
+  })};
+  const cumulative = sorted => sorted.map((study,i) => ({...fit(sorted.slice(0,i+1)),
+    study,nStudies:i+1}));
+  const cumulativeResults = {
+    byYear:cumulative([...includedStudies].sort((a,b) => (Number(a.year)||0)-(Number(b.year)||0))),
+    byEffect:cumulative([...includedStudies].sort((a,b) => a.effect-b.effect))
+  };
 
   // Perform Influence Analysis
   const influenceResults = calculateInfluenceMetrics(includedStudies);
@@ -19056,8 +19092,8 @@ function displaySensitivityResults(studies, leaveOneOut, cumulative, influence, 
 
   // Create modal content
   let html = `
-    <div class="modal active" id="sensitivityModal">
-      <div class="modal-content" style="max-width: 1000px; max-height: 90vh; overflow-y: auto;">
+    <div class="modal-overlay active" id="sensitivityModal" role="dialog" aria-modal="true" aria-label="Sensitivity analyses">
+      <div class="modal" style="max-width: 1000px; max-height: 90vh;">
         <div class="modal-header">
           <h3>Sensitivity Analyses</h3>
           <button class="btn-icon" onclick="closeSensitivityModal()">&times;</button>
@@ -19304,6 +19340,9 @@ function displaySensitivityResults(studies, leaveOneOut, cumulative, influence, 
   document.body.insertAdjacentHTML('beforeend', html);
 
   // Store data for export
+  document.querySelectorAll('#sensitivityModal svg').forEach(svg => {
+    if(!svg.hasAttribute('viewBox')) svg.setAttribute('viewBox',`0 0 ${svg.getAttribute('width')} ${svg.getAttribute('height')}`);
+  });
   window.sensitivityData = { studies, leaveOneOut, cumulative, influence, subgroup, robSensitivity };
 }
 
@@ -22347,6 +22386,7 @@ function showFunnelPlot() {
 
   // Draw funnel plot
   const svg = document.getElementById('funnelSvg');
+  svg.setAttribute('viewBox','0 0 600 400');
   const width = 600, height = 400;
   const margin = { top: 20, right: 40, bottom: 50, left: 60 };
   const plotWidth = width - margin.left - margin.right;
@@ -30928,6 +30968,7 @@ Advanced Methods:
 // ============================================================
 
 function loadExampleDataset() {
+  if (records.length && !confirm('Replace this in-memory session with the BCG example? Existing saved project files are not changed.')) return;
   // BCG Vaccine Meta-Analysis Dataset (classic example)
   const bcgData = [
     { id: 1, title: 'Aronson (1948)', authors: 'Aronson NE', year: 1948, yi: -0.8893, vi: 0.2129, included: true, treated_n: 123, control_n: 139, treated_events: 4, control_events: 11 },
@@ -30945,9 +30986,25 @@ function loadExampleDataset() {
     { id: 13, title: 'Comstock (1976)', authors: 'Comstock GW et al.', year: 1976, yi: -0.1751, vi: 0.0331, included: true, treated_n: 17854, control_n: 16566, treated_events: 122, control_events: 138 }
   ];
 
+  // Use the same stores as imported data; do not maintain stale demo-only fields.
+  decisions = new Map(); extractions = new Map();
+  robAssessments = new Map(); qaAssessments = new Map(); provenancePointers = new Map();
+  selectedRecord = null; currentFilter = 'all';
+  for (const d of bcgData) {
+    const id=String(d.id);
+    decisions.set(id,{screener1:'include',screener2:'include',final:'include',reason:'Built-in example'});
+    extractions.set(id,{screener1:{},screener2:{},adjudicator:{},updatedAt:{},final:{
+      effect_type:'rr',effect:String(Math.exp(d.yi)),
+      ci_lo:String(Math.exp(d.yi-1.959964*Math.sqrt(d.vi))),
+      ci_hi:String(Math.exp(d.yi+1.959964*Math.sqrt(d.vi))),
+      treatment_n:String(d.treated_n),control_n:String(d.control_n),
+      events_tx:String(d.treated_events),events_ctrl:String(d.control_events)
+    }});
+  }
+  filterCache.query=null;filterCache.filter=null;filterCache.results=null;
   // Add to project
   records = bcgData.map(d => ({
-    id: d.id,
+    id: String(d.id),
     title: d.title,
     authors: d.authors,
     year: d.year,
