@@ -18926,7 +18926,7 @@ function showSensitivityAnalysis() {
     includedStudies.push({
       id: rec.id,
       title: rec.title || 'Untitled',
-      author: rec.author || ext.author || 'Unknown',
+      author: rec.author || (Array.isArray(rec.authors) ? rec.authors.join(', ') : rec.authors) || ext.author || rec.title || 'Unnamed study',
       year: rec.year || ext.year || '',
       effect: effect,
       ciLo: ciLo,
