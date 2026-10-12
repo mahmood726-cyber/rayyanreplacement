@@ -19,6 +19,8 @@ try{for(const width of [1280,390]){
    ['sensitivity','showSensitivityAnalysis','closeSensitivityModal','#sensitivityModal svg']]){
    await page.evaluate(fn=>window[fn](),open);await graphic(page,selector);r.passed.push(name);
    if(name==='sensitivity') {
+     await expect(page.locator('#sensitivityTab_leaveOneOut')).toContainText('Aronson');
+     await expect(page.locator('#sensitivityTab_leaveOneOut')).not.toContainText('Unknown');
      await expect(page.locator('#sensitivityModal')).toBeInViewport();
      expect(await page.locator('#sensitivityModal').evaluate(e=>getComputedStyle(e).position)).toBe('fixed');
      await page.locator('#sensitivityModal button[onclick*="cumulative"]').click();
