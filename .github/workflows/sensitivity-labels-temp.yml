@@ -1,0 +1,59 @@
+name: Sensitivity study label check (temporary)
+on:
+  push:
+    branches: [fix/sensitivity-study-labels-20261012]
+    paths: [.github/workflows/sensitivity-labels-temp.yml]
+permissions:
+  contents: write
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/sensitivity-study-labels-20261012
+      - name: Resolve imported plural authors and title fallback
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('screenr.html');t=p.read_text()
+          a=t.index('function showSensitivityAnalysis() {');b=t.index('function displaySensitivityResults(',a)
+          section=t[a:b];old="author: rec.author || ext.author || 'Unknown',"
+          new="author: rec.author || (Array.isArray(rec.authors) ? rec.authors.join(', ') : rec.authors) || ext.author || rec.title || 'Unnamed study',"
+          assert section.count(old)==1;p.write_text(t[:a]+section.replace(old,new,1)+t[b:])
+          p=Path('tests/plot-regressions/plots.mjs');t=p.read_text()
+          old="   if(name==='sensitivity') {"
+          new=old+"\n     await expect(page.locator('#sensitivityTab_leaveOneOut')).toContainText('Aronson');\n     await expect(page.locator('#sensitivityTab_leaveOneOut')).not.toContainText('Unknown');"
+          assert t.count(old)==1;p.write_text(t.replace(old,new,1))
+          PY
+          git diff --check
+      - uses: actions/checkout@v4
+        with:
+          repository: mahmood726-cyber/allmeta
+          ref: 42938c1bfec0af24fbdec359476f0332515e0577
+          path: .plot-test-harness
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci && npx playwright install --with-deps chromium
+        working-directory: .plot-test-harness/tests/playwright
+      - run: |
+          cp tests/plot-regressions/plots.mjs .plot-test-harness/tests/playwright/screenr-plots.mjs
+          python3 -m http.server 8080 --bind 127.0.0.1 >/tmp/plot-server.log 2>&1 &
+          cd .plot-test-harness/tests/playwright
+          node screenr-plots.mjs
+      - name: Commit verified study labels
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add screenr.html tests/plot-regressions/plots.mjs
+          git commit -m 'fix: display canonical author labels in sensitivity plots'
+          git push origin HEAD:fix/sensitivity-study-labels-20261012
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenr-final-labelled-plots
+          path: .plot-test-harness/tests/playwright/artifacts/screenr-plots/
+          retention-days: 7
