@@ -1,7 +1,7 @@
 import { chromium, expect } from '@playwright/test';
 import fs from 'node:fs/promises';
 const out='artifacts/screenr-plots';await fs.mkdir(out,{recursive:true});const browser=await chromium.launch(),results=[];
-async function graphic(page,selector){const g=page.locator(selector).first();await expect(g).toBeVisible();await expect.poll(()=>g.locator('path,circle,rect,line,polygon').count()).toBeGreaterThan(2);expect(await g.evaluate(el=>[...el.querySelectorAll('*')].flatMap(m=>[...m.attributes].filter(a=>/^(d|points|cx|cy|r|x|y|x1|x2|y1|y2|width|height)$/.test(a.name)&&/NaN|Infinity/.test(a.value)).map(a=>a.value)))).toEqual([]);}
+async function graphic(page,selector){const g=page.locator(selector).first();await expect(g).toBeVisible();await g.scrollIntoViewIfNeeded();await expect(g).toBeInViewport();await expect.poll(()=>g.locator('path,circle,rect,line,polygon').count()).toBeGreaterThan(2);expect(await g.evaluate(el=>[...el.querySelectorAll('*')].flatMap(m=>[...m.attributes].filter(a=>/^(d|points|cx|cy|r|x|y|x1|x2|y1|y2|width|height)$/.test(a.name)&&/NaN|Infinity/.test(a.value)).map(a=>a.value)))).toEqual([]);}
 try{for(const width of [1280,390]){
  const ctx=await browser.newContext({viewport:{width,height:950}}),page=await ctx.newPage(),r={width,passed:[],errors:[]};
  await page.addInitScript(()=>localStorage.setItem('screenr_wizard_seen','true'));
@@ -18,6 +18,15 @@ try{for(const width of [1280,390]){
    ['funnel','showFunnelPlot','closeFunnelModal','#funnelSvg'],
    ['sensitivity','showSensitivityAnalysis','closeSensitivityModal','#sensitivityModal svg']]){
    await page.evaluate(fn=>window[fn](),open);await graphic(page,selector);r.passed.push(name);
+   if(name==='sensitivity') {
+     await expect(page.locator('#sensitivityModal')).toBeInViewport();
+     expect(await page.locator('#sensitivityModal').evaluate(e=>getComputedStyle(e).position)).toBe('fixed');
+     await page.locator('#sensitivityModal button[onclick*="cumulative"]').click();
+     await expect(page.locator('#sensitivityTab_cumulative svg')).toHaveCount(2);
+     for(let i=0;i<2;i++)await graphic(page,`#sensitivityTab_cumulative svg:nth-of-type(${i+1})`);
+     await page.locator('#sensitivityModal button[onclick*="leaveOneOut"]').click();
+     await graphic(page,'#sensitivityTab_leaveOneOut svg');
+   }
    await page.setViewportSize({width:width+20,height:970});await graphic(page,selector);
    await page.screenshot({path:out+'/'+name+'-'+width+'.png',fullPage:false});
    await page.evaluate(fn=>window[fn](),close);

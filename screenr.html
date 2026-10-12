@@ -19092,8 +19092,8 @@ function displaySensitivityResults(studies, leaveOneOut, cumulative, influence, 
 
   // Create modal content
   let html = `
-    <div class="modal active" id="sensitivityModal">
-      <div class="modal-content" style="max-width: 1000px; max-height: 90vh; overflow-y: auto;">
+    <div class="modal-overlay active" id="sensitivityModal" role="dialog" aria-modal="true" aria-label="Sensitivity analyses">
+      <div class="modal" style="max-width: 1000px; max-height: 90vh;">
         <div class="modal-header">
           <h3>Sensitivity Analyses</h3>
           <button class="btn-icon" onclick="closeSensitivityModal()">&times;</button>
