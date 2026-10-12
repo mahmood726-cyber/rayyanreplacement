@@ -1,0 +1,35 @@
+name: Plot state source inspection (temporary)
+on:
+  push:
+    branches: [fix/plot-state-20261012]
+    paths: [.github/workflows/plot-state-inspect-temp.yml]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Extract current source and declaration history
+        run: |
+          mkdir -p artifacts/plot-state
+          cp screenr.html artifacts/plot-state/current.html
+          git log --format='%H %s' -S 'let currentFilter' -- screenr.html > artifacts/plot-state/history.txt
+          python - <<'PY'
+          import subprocess
+          from pathlib import Path
+          commits=subprocess.check_output(['git','log','--format=%H','-S','let currentFilter','--','screenr.html'],text=True).splitlines()
+          for i,commit in enumerate(commits[:4]):
+              for suffix in ['', '^']:
+                  result=subprocess.run(['git','show',commit+suffix+':screenr.html'],capture_output=True)
+                  if result.returncode==0:
+                      Path('artifacts/plot-state/'+str(i)+('parent' if suffix else 'commit')+'.html').write_bytes(result.stdout)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: plot-state-source
+          path: artifacts/plot-state/
+          retention-days: 7
